@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css"
+         integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
+        <link href="css/step1.css" type="text/css" rel="stylesheet">
+        <meta charset="utf-8">
+        <title>
+           JavaScript Board Game
+        </title>
+    </head>
+    <body onload="start()">
+
+        <div class="container">
+            <div class="number" data-row= "1" data-column="1" id="1_1"></div>
+            <div class="number" data-row= "1" data-column="2" id="two">&nbsp;</div>
+            <div class="number" data-row= "1" data-column="3" id="three">&nbsp;</div>
+            <div class="number" data-row= "1" data-column="4" id="four">&nbsp;</div>
+            <div class="number" data-row= "1" data-column="5" id="five">&nbsp;</div>
+            <div class="number" data-row= "1" data-column="6" id="six">&nbsp;</div>
+            <div class="number" data-row= "1" data-column="7" id="seven">&nbsp;</div>
+            <div class="number" data-row= "1" data-column="8" id="eight">&nbsp;</div>
+            <div class="number" data-row= "1" data-column="9" id="nine">&nbsp;</div>
+
+            <div class="number" data-row= "2" data-column="1" id="ten">&nbsp;</div>
+            <div class="number" data-row= "2" data-column="2" id="eleven">&nbsp;</div>
+            <div class="number" data-row= "2" data-column="3" id="twelve">&nbsp;</div>
+            <div class="number" data-row= "2" data-column="4" id="thirteen">&nbsp;</div>
+            <div class="number weapon4" data-row= "2" data-column="5" id="fourteen">&nbsp;</div>
+            <div class="number"data-row= "2" data-column="6" id="fifteen">&nbsp;</div>
+            <div class="number" data-row= "2" data-column="7" id="fourteen">&nbsp;</div>
+            <div class="number" data-row= "2" data-column="8" id="fifteen">&nbsp;</div>
+            <div class="number" data-row= "2" data-column="9" id="sixteen">&nbsp;</div>
+
+            <div class="number player" data-row= "3" data-column="1" id="seventeen">&nbsp;</div>
+            <div class="number" data-row= "3" data-column="2" id="eighteen">&nbsp;</div>
+            <div class="number" data-row= "3" data-column="3"id="nineteen">&nbsp;</div>
+            <div class="number" data-row= "3" data-column="4" id="twenty">&nbsp;</div>
+            <div class="number" data-row= "3" data-column="5" id="twentyOne">&nbsp;</div>
+            <div class="number" data-row= "3" data-column="6" id="twentyTwo">&nbsp;</div>
+            <div class="number" data-row= "3" data-column="7" id="twentyThree">&nbsp;</div>
+            <div class="number" data-row= "3" data-column="8"id="twentyFour">&nbsp;</div>
+            <div class="number" data-row= "3" data-column="9"id="twentyFive">&nbsp;</div>
+
+            <div class="number" data-row= "4" data-column="1"id="twentySix">&nbsp;</div>
+            <div class="number" data-row= "4" data-column="2" id="twentySeven">&nbsp;</div>
+            <div class="number" data-row= "4" data-column="3"id="twentyEight">&nbsp;</div>
+            <div class="number" data-row= "4" data-column="4"id="twentyNine">&nbsp;</div>
+            <div class="number" data-row= "4" data-column="5"id="thirty">&nbsp;</div>
+            <div class="number" data-row= "4" data-column="6"id="thirtyOne">&nbsp;</div>
+            <div class="number" data-row= "4" data-column="7"id="thirtyTwo">&nbsp;</div>
+            <div class="number" data-row= "4" data-column="8"id="thirtyThree">&nbsp;</div>
+            <div class="number" data-row= "4" data-column="9"id="thirtyFour">&nbsp;</div>
+
+            <div class="number player" data-row= "5" data-column="1"id="thirtyFive">&nbsp;</div>
+            <div class="number" data-row= "5" data-column="2"id="thirtySix">&nbsp;</div>
+            <div class="number" data-row= "5" data-column="3"id="thirtySeven">&nbsp;</div>
+            <div class="number" data-row= "5" data-column="4"id="thirtyEight">&nbsp;</div>
+            <div class="number" data-row= "5" data-column="5"id="thirtyNine">&nbsp;</div>
+            <div class="number weapon1" data-row= "5" data-column="6"id="fourty">&nbsp;</div>
+            <div class="number" data-row= "5" data-column="7"id="fourtyOne">&nbsp;</div>
+            <div class="number" data-row= "5" data-column="8"id="fourtyTwo">&nbsp;</div>
+            <div class="number" data-row= "5" data-column="9"id="fourtyThree">&nbsp;</div>
+
+            <div class="number" data-row= "6" data-column="1"id="fourtyFour">&nbsp;</div>
+            <div class="number" data-row= "6" data-column="2"id="fourtyFive">&nbsp;</div>
+            <div class="number" data-row= "6" data-column="3"id="fourtySix">&nbsp;</div>
+            <div class="number" data-row= "6" data-column="4"id="fourtySeven">&nbsp;</div>
+            <div class="number" data-row= "6" data-column="5"id="fourtyEight">&nbsp;</div>
+            <div class="number" data-row= "6" data-column="6" id="fourtyNine">&nbsp;</div>
+            <div class="number" data-row= "6" data-column="7" id="fifty">&nbsp;</div>
+            <div class="number" data-row= "6" data-column="8"id="fiftyOne">&nbsp;</div>
+            <div class="number" data-row= "6" data-column="9" id="fiftyTwo">&nbsp;</div>
+
+            <div class="number" data-row= "7" data-column="1"id="fiftyThree">&nbsp;</div>
+            <div class="number weapon2" data-row= "7" data-column="2"id="fiftyFive">&nbsp;</div>
+            <div class="number"data-row= "7" data-column="3" id="fiftyFour">&nbsp;</div>
+            <div class="number" data-row= "7" data-column="4"id="fiftyFive">&nbsp;</div>
+            <div class="number" data-row= "7" data-column="5"id="fiftySix">&nbsp;</div>
+            <div class="number"data-row= "7" data-column="6" id="fiftySeven">&nbsp;</div>
+            <div class="number" data-row= "7" data-column="7"id="fiftyEight">&nbsp;</div>
+            <div class="number"data-row= "7" data-column="8" id="fiftyNine">&nbsp;</div>
+            <div class="number" data-row= "7" data-column="9"id="sixty">&nbsp;</div>
+
+            <div class="number" data-row= "8" data-column="1"id="sixtyOne">&nbsp;</div>
+            <div class="number"data-row= "8" data-column="2" id="sixtyTwo">&nbsp;</div>
+            <div class="number" data-row= "8" data-column="3"id="sixtyThree">&nbsp;</div>
+            <div class="number" data-row= "8" data-column="4"id="sixtyFour">&nbsp;</div>
+            <div class="number" data-row= "8" data-column="5"id="sixtyFive">&nbsp;</div>
+            <div class="number"data-row= "8" data-column="6" id="sixtySix">&nbsp;</div>
+            <div class="number"data-row= "8" data-column="7" id="sixtySeven">&nbsp;</div>
+            <div class="number" data-row= "8" data-column="8"id="sixtyEight">&nbsp;</div>
+            <div class="number" data-row= "8" data-column="9"id="sixtyNine">&nbsp;</div>
+
+            <div class="number" data-row= "9" data-column="1"id="seventy">&nbsp;</div>
+            <div class="number weapon3"data-row= "9" data-column="2" id="seventyOne">&nbsp;</div>
+            <div class="number" data-row= "9" data-column="3"id="seventyTwo">&nbsp;</div>
+            <div class="number"data-row= "9" data-column="4" id="seventyThree">&nbsp;</div>
+            <div class="number"data-row= "9" data-column="5" id="seventyFour">&nbsp;</div>
+            <div class="number" data-row= "9" data-column="6"id="seventyFive">&nbsp;</div>
+            <div class="number" data-row= "9" data-column="7"id="seventySix">&nbsp;</div>
+            <div class="number" data-row= "9" data-column="8"id="seventySeven">&nbsp;</div>
+            <div class="number"data-row= "9" data-column="9" id="seventyEight">&nbsp;</div>
+            <button >Refresh</button>
+        </div>
+
+   
+       
+        <script src="step1.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+        
+
+        
+
+        
+    </body>
+</html>
