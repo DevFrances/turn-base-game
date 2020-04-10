@@ -1,3 +1,17 @@
+// class Board(){
+//   constructor(){
+
+//   }
+// }
+
+// // create two dimensional array
+// array =
+// [
+//   [   ],
+//   [   ]
+// ];
+
+
 let container = document.querySelector('.container');
 let list = [];
 let newlist = [];
