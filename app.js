@@ -1,6 +1,6 @@
 class app{
   constructor(){
-    
+    this.board = new Board ()  
   }
-  board = new Board ()
+  
 }

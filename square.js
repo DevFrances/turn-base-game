@@ -5,14 +5,11 @@ this._blocked = false;
 this._player = null;
 this._weapon = null
   }
-}
-
-
-  set ;blocked(false){
+  set blocked(bool){
     // set blocked property
-  this._blocked = false;
+  this._blocked = bool;
     // set a CSS blocked class
-  if(false){
+  if(bool){
     $(div).addClass('obstacle'); 
   }
   else {
@@ -21,6 +18,10 @@ this._weapon = null
   }
 
 
-get ;blocked(false){
+get blocked(){
   return this._blocked
-};
+}
+}
+
+
+  

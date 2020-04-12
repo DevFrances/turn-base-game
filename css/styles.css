@@ -1,77 +1,27 @@
-.main{
-    display: grid;
+
+.box {
+	border: black 1px solid;
+	width: 60px;
+	height: 60px;
+	margin: 0 auto;
+	margin-top: 0;
+	cursor: pointer;
+	display: inline-block;
+	float: left;
 }
 
-.container{
-    display: grid;
-    
-    grid-template-columns: repeat(9, 4%);
-    grid-template-rows: repeat(9,3em);
-    text-align: center!important;
-    box-sizing: border-box;
-  justify-content: center;
-  
-}
-.number{
-    border: 1px solid;
+.row {
+	display: block;
+	float:left;
+	width:100%;
 }
 
-.player1_dash{
-    height: 250px;
-    width: 45%;
-    border: 1px solid green;
-    display: inline-block;
-    margin: 0 auto;
-    background-image: url('../images/player1.jpeg');
-
-    background-size: 50%;
-    background-position: left;
-    background-repeat: no-repeat;
-}
-.player2_dash{
-    height: 250px;
-    width: 45%;
-    border: 1px solid green;
-    display:inline-block;
-    margin: 0 auto;
-    background-image: url('../images/player3.jpeg');
-
-    background-size: 50%;
-    background-position: left;
-    background-repeat: no-repeat;  
+img{
+	width: 60px;
+	height: 60px;
 }
 
-.dashboard{
-  display: flex;
-  justify-content: center;
-  
-}
-.player1, .player2, .weapon1, .weapon2,.weapon3, .weapon4{
-    background-size: 100%;
-    background-position: center center;
-    background-repeat: no-repeat;
-}
-
-.player1 {
-    background-image: url('../images/player1.jpeg');
-}
-.player2 {
-    background-image: url('../images/player3.jpeg');
-}
-.weapon1 {
-    background-image: url('../images/bomb.png');
-}
-.weapon2 {
-    background-image: url('../images/dynamite.jpeg');
-}
-.weapon3 {
-    background-image: url('../images/gun.jpeg');
-}
-.weapon4 {
-    background-image: url('../images/knife.jpeg');
-} 
-
-.obstacle{
-    background-image: url('../images/brick.jpeg');
-    background-size: 100%;
+#wrapper{
+	margin: 20px auto;
+	width: 50%;
 }
