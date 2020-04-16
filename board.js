@@ -3,26 +3,6 @@
 
   // }
 
-let images = [
-  'images/dynamite.jpeg',
-  'images/gun.jpeg',
-  'images/bomb.png',
-  'images/knife.jpeg',
-  'images/brick.jpeg',
-  'images/brick.jpeg',
-  'images/brick.jpeg',
-  'images/brick.jpeg',
-  'images/brick.jpeg',
-  'images/brick.jpeg',
-  'images/brick.jpeg',
-  'images/brick.jpeg',
-  'images/brick.jpeg',
-  'images/brick.jpeg',
-  'images/brick.jpeg',
-  'images/brick.jpeg',
-  'images/player1.jpeg',
-  'images/player2.jpeg'
-]
 
 function start() {
   for (let i = 0; i < 9; i++) {
@@ -37,48 +17,48 @@ function start() {
  }
  let elements = document.getElementsByClassName('box')
 
- for (let i = 0; i <= 17; i++) {
-   let randomNumber = getRandomNumber(elements.length)
-  // let randomNumber = Math.floor((Math.random() * 17) + 1);
-   let box = elements[randomNumber]
-   let image = images[i]
-   box.innerHTML = `<img src=${image} alt="Image"/>`
  }
-}
-
-
 
 function getRandomNumber(length){
   return Math.floor(Math.random()* length)
 };
 start()
 
+// Place Random Object on the Gameboard
+const obstacle = 'images/brick.jpeg';
+const weapons = ['images/dynamite.jpeg', 'images/gun.jpeg', 'images/bomb.png', 'images/knife.jpeg',]
+const players = ['images/player1.jpeg', 'images/player2.jpeg']
 
+function placeItem(item) {
+  let randomNumber = getRandomNumber($('.box').length);
+  let box = $('.box')[randomNumber]
+  let isOccupied = $('box').hasClass('occupied');
+  if (isOccupied) {
+    console.log(isOccupied)
+    return placeItem(item)
+  } else {
+    box.innerHTML += `<img src=${item} class="occupied"/>`
+  }
 
+}
+function getRandomNumber(length) {
+  return Math.floor(Math.random() * length)
+};
 
-  // let container = document.querySelector('.container');
-  // let list = [];
-  // let newlist = [];
-  
-  // for (let i = 0; i < container.children.length; i++) {
-  //   list.push(container.children[i]);
-  // }
-  
-  // list.sort(function(a, b) {
-  //   return -1 + Math.random() * 3; // -1, 0, or 1
-  // });
-  
-  // while (container.children.length > 0) {
-  //   container.removeChild(container.children[0]);
-  // }
-  // list.forEach(function(el) {
-  //   container.appendChild(el);
-  // });
-// }
+function renderWeapons() {
+  for (let i = 0; i < weapons.length; i++)
+    placeItem(weapons[i])
+}
+function renderPlayers() {
+  for (let i = 0; i < players.length; i++)
+    placeItem(players[i])
+}
+function renderObstacles() {
+  for (let i = 0; i < 12; i++) {
+    placeItem(obstacle)
+  }
+}
+renderWeapons();
+renderPlayers();
+renderObstacles()
 
-// // create two dimensional array
-// array =
-// [
-//   [   ],
-//   [   ]
-// ];
