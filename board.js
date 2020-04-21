@@ -5,11 +5,12 @@
 
 
 function start() {
-  for (let i = 0; i < 9; i++) {
+  for (let rows = 0; rows < 9; rows++) {
     let row = document.createElement('div');
     row.className = "row";
-    for (let j = 0; j < 9; j++) {
+    for (let cols = 0; cols < 9; cols++) {
         let box = document.createElement('div');
+        $(box).attr('id', `${rows}-${cols}`);
         box.className = "box";
         row.appendChild(box);
     }                
@@ -32,12 +33,13 @@ const players = ['images/player1.jpeg', 'images/player2.jpeg']
 function placeItem(item) {
   let randomNumber = getRandomNumber($('.box').length);
   let box = $('.box')[randomNumber]
-  let isOccupied = $('box').hasClass('occupied');
+  let isOccupied = $(box).hasClass('occupied');
   if (isOccupied) {
     console.log(isOccupied)
     return placeItem(item)
   } else {
-    box.innerHTML += `<img src=${item} class="occupied"/>`
+    $(box).addClass('occupied');
+    box.innerHTML += `<img src='${item}'/>`
   }
 
 }
