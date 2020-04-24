@@ -20,7 +20,30 @@ img{
 	width: 60px;
 	height: 60px;
 }
-
+img .weapon1{
+	width: 60px;
+	height: 60px;
+}
+img .weapon2{
+	width: 60px;
+	height: 60px;
+}
+img .weapon3{
+	width: 60px;
+	height: 60px;
+}
+img .weapon4{
+	width: 60px;
+	height: 60px;
+}
+img .player1{
+	width: 60px;
+	height: 60px;
+}
+img .player2{
+	width: 60px;
+	height: 60px;
+}
 #wrapper{
 	margin: 20px auto;
 	width: 50%;

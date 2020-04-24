@@ -1,5 +1,5 @@
 // define players
-class Players{
+class players{
   constructor(name, image){
       this._name = name;
       this._image = image
