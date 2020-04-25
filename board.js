@@ -1,5 +1,3 @@
-// const weapon = require ('./weapon.js');
-
 
 function start() {
   for (let rows = 0; rows < 9; rows++) {
@@ -22,7 +20,7 @@ function getRandomNumber(length){
 };
 start()
 
-// Place Random Object on the Gameboard
+// Place Random weapon on the Gameboard
 class weapon {
   constructor(name, damage, image){
       this._name = name;
@@ -48,9 +46,40 @@ let weapon4 = new weapon(
 )
 const weapons = [weapon1, weapon2, weapon3, weapon4]
 
+function placeWeapons(item) {
+  let randomNumber = getRandomNumber($('.box').length);
+  let box = $('.box')[randomNumber]
+  let isOccupied = $(box).hasClass('occupied');
+  if (isOccupied) {
+    console.log(isOccupied)
+    return placeWeapons(item)
+  } else {
+    $(box).addClass('occupied');
+    box.innerHTML += `<img src='${item['_image']}'/>`
+  }
+
+}
+// end of placing random weapons
+
+//place obstacle on the game board
 const obstacle = 'images/brick.jpeg';
 
-// define players
+function placeItem(item) {
+  let randomNumber = getRandomNumber($('.box').length);
+  let box = $('.box')[randomNumber]
+  let isOccupied = $(box).hasClass('occupied');
+  if (isOccupied) {
+    console.log(isOccupied)
+    return placeItem(item)
+  } else {
+    $(box).addClass('occupied').addClass('block');
+    box.innerHTML += `<img src='${item}'/>`
+    
+  }
+
+}
+
+// define and place players on the board
 class players{
   constructor(name, image){
       this._name = name;
@@ -80,33 +109,8 @@ function placePlayers(item) {
 }
 const player = [player1, player2]
 
-function placeItem(item) {
-  let randomNumber = getRandomNumber($('.box').length);
-  let box = $('.box')[randomNumber]
-  let isOccupied = $(box).hasClass('occupied');
-  if (isOccupied) {
-    console.log(isOccupied)
-    return placeItem(item)
-  } else {
-    $(box).addClass('occupied').addClass('block');
-    box.innerHTML += `<img src='${item}'/>`
-    
-  }
 
-}
-function placeWeapons(item) {
-  let randomNumber = getRandomNumber($('.box').length);
-  let box = $('.box')[randomNumber]
-  let isOccupied = $(box).hasClass('occupied');
-  if (isOccupied) {
-    console.log(isOccupied)
-    return placeWeapons(item)
-  } else {
-    $(box).addClass('occupied');
-    box.innerHTML += `<img src='${item['_image']}'/>`
-  }
 
-}
 function getRandomNumber(length) {
   return Math.floor(Math.random() * length)
 };
