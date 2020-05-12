@@ -8,6 +8,7 @@
 	cursor: pointer;
 	display: inline-block;
 	float: left;
+	display:grid
 }
 
 .row {
@@ -47,4 +48,11 @@ img .player2{
 #wrapper{
 	margin: 20px auto;
 	width: 50%;
+}
+.barrier {
+	background-image: url('../images/brick.jpeg');
+	background-repeat: no-repeat;
+	background-size: cover;
+	width: 60px;
+	height: 60px;
 }

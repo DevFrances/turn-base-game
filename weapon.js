@@ -2,11 +2,15 @@ class weapon {
     constructor(name, damage, image){
         this._name = name;
         this._damage = damage;
-        this._image = image
+        this._image = image;
+        this._renderWeapons = renderWeapons()
     }
-    get damage(){
-      return damage
-    }
+     renderWeapons() {
+      for (let i = 0; i < weapons.length; i++){
+        placeItem(weapons[i], "weapon")
+      }
+      return renderWeapons()
+      }
   }
   
   let weapon1 = new weapon(
@@ -23,12 +27,6 @@ class weapon {
   )
   const weapons = [weapon1, weapon2, weapon3, weapon4]
 
-  
-function renderWeapons() {
-    for (let i = 0; i < weapons.length; i++){
-      placeItem(weapons[i], "weapon")
-    }
-    }
+  // let myWeapon = new weapon();
 
-renderWeapons();
 
