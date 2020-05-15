@@ -63,10 +63,11 @@
 
 
 class Board{
-  constructor(){
-    this._start = this.start();
-    this._placeItem = this.placeItem();
-    this._renderObstacles = this.renderObstacles();
+  constructor(players){
+    this.start();
+    this.renderPlayers(players);
+    this.renderWeapons(weapons);
+    this.renderObstacles();
   }
 
    start() {
@@ -81,17 +82,16 @@ class Board{
         }                
         document.getElementById('boxParent').appendChild(row);
      }
-     let elements = document.getElementsByClassName('box')
-    return row
+
      }
 
       placeItem(item, clsName) {
-        let randomNumber = getRandomNumber($('.box').length);
+        let randomNumber = this.getRandomNumber($('.box').length);
         let box = $('.box')[randomNumber]
         let isOccupied = $(box).hasClass('barrier') || $(box).children().length > 0;
         if (isOccupied) {
           console.log(isOccupied)
-          return placeItem(item, clsName)
+           this.placeItem(item, clsName);
         }else {
           if(clsName ==='barrier') {
           $(box).addClass('barrier');
@@ -102,14 +102,21 @@ class Board{
       
           }
         }
-      return box
       }
-
+      renderPlayers(players) {
+        for (let i = 0; i < players.length; i++){
+          this.placeItem(players[i], "player")
+        }
+      }
+      renderWeapons() {
+        for (let i = 0; i < weapons.length; i++){
+          this.placeItem(weapons[i], "weapon")
+        }
+      }
        renderObstacles() {
           for (let i = 0; i < 12; i++) {
-            placeItem(null, "barrier")
+            this.placeItem(null, "barrier")
           }
-          return renderObstacles()
         }
 
          getRandomNumber(length) {
@@ -118,4 +125,4 @@ class Board{
           
       
 }
-let myBoard = new Board();
+
