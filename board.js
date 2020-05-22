@@ -64,12 +64,25 @@
 
 class Board{
   constructor(players){
+    this.model();
     this.start();
     this.renderPlayers(players);
     this.renderWeapons(weapons);
     this.renderObstacles();
   }
 
+  model(){
+    var model = [];  // model[2][3] is row 3, column 4 (since first row is 0)
+
+    for (let r=0; r<this.size; r++) {
+        model.push( [] );  // start a new row
+        for ( let c=0; c<this.size; c++) {
+            model[r].push( new Square(r, c) );  // push a new Square on current row
+        }
+    }
+
+    return model;
+  }
    start() {
       for (let rows = 0; rows < 9; rows++) {
         let row = document.createElement('div');
@@ -98,8 +111,8 @@ class Board{
       
           }
           else{
-          box.innerHTML += `<img src='${item['_image']}'/>`
-      
+          // box.innerHTML += `<img src='${item['_image']}'/>`
+            box.innerHTML = item.elem;
           }
         }
       }
@@ -122,7 +135,15 @@ class Board{
          getRandomNumber(length) {
             return Math.floor(Math.random() * length)
           };
-          
+          movePlayer(){
+            let pos1 = { row: 3, col: 4 };  // position where player is now
+            let pos2 = { row: 3, col: 2 };  // position where you want to move player
+            let box1 = Board.getBoxByPos(pos1);
+            let box2 = Board.getBoxByPos(pos2);
+            let p = box1.player;  // get player from box1
+            box1.player = null;  // remove player from box1
+            box2.player = p;  // place player in box2
+          }
       
 }
 

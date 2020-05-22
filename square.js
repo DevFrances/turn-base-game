@@ -1,4 +1,4 @@
-class square{
+class Square{
   constructor(row, col){
 this.id = 'sq-${row}-${col}';
 this._blocked = false;
