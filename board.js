@@ -64,24 +64,29 @@
 
 class Board{
   constructor(players){
-    this.model();
+   this.model = this._createModel();
     this.start();
     this.renderPlayers(players);
     this.renderWeapons(weapons);
     this.renderObstacles();
+    
   }
 
-  model(){
-    var model = [];  // model[2][3] is row 3, column 4 (since first row is 0)
+  _createModel(){
+   let model = [] // model[2][3] is row 3, column 4 (since first row is 0)
 
-    for (let r=0; r<this.size; r++) {
+    // let r = 9;
+    // let c = 9;
+    for (let r=0; r < 9; r++) {
         model.push( [] );  // start a new row
-        for ( let c=0; c<this.size; c++) {
+        for ( let c=0; c < 9; c++) {
             model[r].push( new Square(r, c) );  // push a new Square on current row
         }
     }
-
+    console.log('hello chiamaka')
     return model;
+// console.log(app.board.model);
+    // console.log("chiamaka");
   }
    start() {
       for (let rows = 0; rows < 9; rows++) {
@@ -147,3 +152,4 @@ class Board{
       
 }
 
+// console.log(app.board.model);

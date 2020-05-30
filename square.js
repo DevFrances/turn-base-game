@@ -5,23 +5,28 @@ this._blocked = false;
 this._player = null;
 this._weapon = null
   }
-  set blocked(bool){
-    // set blocked property
-  this._blocked = bool;
-    // set a CSS blocked class
-  if(bool){
-    $(div).addClass('obstacle'); 
-  }
-  else {
-    $(div).removeClass('obstacle');
-  }
+
+  set player(p) {
+    // model
+  sq.player = item;
+
+  let sq = this.model[row][col];
+    this._player = p;
+    sq.blocked = true;
+
+    // view comes later…
+}
+set weapon(w) {
+  sq.weapon = item;
+  let sq = this.model[row][col];
+  this._weapon = w;
+  sq.blocked = true;
+}
+
   }
 
 
-get blocked(){
-  return this._blocked
-}
-}
+
 
 
   
