@@ -1,66 +1,3 @@
-// create grid on board
-// class Board{
-//   constructor(){
-    
-//   }
-
-// }
-// function start() {
-//   for (let rows = 0; rows < 9; rows++) {
-//     let row = document.createElement('div');
-//     row.className = "row";
-//     for (let cols = 0; cols < 9; cols++) {
-//         let box = document.createElement('div');
-//         $(box).attr('id', `${rows}-${cols}`);
-//         box.className = "box";
-//         row.appendChild(box);
-//     }                
-//     document.getElementById('boxParent').appendChild(row);
-//  }
-//  let elements = document.getElementsByClassName('box')
-
-//  }
-
-// function getRandomNumber(length){
-//   return Math.floor(Math.random()* length)
-// };
-// start()
-
-
-// place all items on the board
-// function placeItem(item, clsName) {
-//   let randomNumber = getRandomNumber($('.box').length);
-//   let box = $('.box')[randomNumber]
-//   let isOccupied = $(box).hasClass('barrier') || $(box).children().length > 0;
-//   if (isOccupied) {
-//     console.log(isOccupied)
-//     return placeItem(item, clsName)
-//   }else {
-//     if(clsName ==='barrier') {
-//     $(box).addClass('barrier');
-
-//     }
-//     else{
-//     box.innerHTML += `<img src='${item['_image']}'/>`
-
-//     }
-//   }
-
-// }
-
-// function getRandomNumber(length) {
-//   return Math.floor(Math.random() * length)
-// };
-
-
-// function renderObstacles() {
-//   for (let i = 0; i < 12; i++) {
-//     placeItem(null, "barrier")
-//   }
-// }
-// renderObstacles();
-
-
 
 class Board{
   constructor(players){
@@ -69,14 +6,10 @@ class Board{
     this.renderPlayers(players);
     this.renderWeapons(weapons);
     this.renderObstacles();
-    
   }
 
   _createModel(){
    let model = [] // model[2][3] is row 3, column 4 (since first row is 0)
-
-    // let r = 9;
-    // let c = 9;
     for (let r=0; r < 9; r++) {
         model.push( [] );  // start a new row
         for ( let c=0; c < 9; c++) {
@@ -85,8 +18,6 @@ class Board{
     }
     console.log('hello chiamaka')
     return model;
-// console.log(app.board.model);
-    // console.log("chiamaka");
   }
    start() {
       for (let rows = 0; rows < 9; rows++) {
@@ -105,17 +36,24 @@ class Board{
 
       placeItem(item, clsName) {
         let randomNumber = this.getRandomNumber($('.box').length);
-        let box = $('.box')[randomNumber]
-        let isOccupied = $(box).hasClass('barrier') || $(box).children().length > 0;
+        let box = $('.box')[randomNumber] //gets a random box 
+        let isOccupied = $(box).hasClass('barrier') || $(box).children().length > 0;//checks if its occupied with a barrier, weapon or player
+        // let isOccupied = false;
+
         if (isOccupied) {
           console.log(isOccupied)
            this.placeItem(item, clsName);
         }else {
+           let row = Number( $(box).attr('id')[0]); //gets the first character from the box
+           let col = Number( $(box).attr('id')[2]);// gets the third charcter from the box
+           let sq = this.model[row][col]; //determine the row and col, find the square
           if(clsName ==='barrier') {
-          $(box).addClass('barrier');
-      
+            sq.blocked = true;  //updates the block square
+            $(box).addClass('barrier'); //blocks the square with a class barrier
           }
           else{
+            sq.player = item
+            sq.weapon = item
           // box.innerHTML += `<img src='${item['_image']}'/>`
             box.innerHTML = item.elem;
           }
@@ -152,4 +90,3 @@ class Board{
       
 }
 
-// console.log(app.board.model);

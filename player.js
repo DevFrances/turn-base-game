@@ -7,9 +7,6 @@ class player{
        // View
      
        this.elem = `<img src='${image}' class= "player" id="${name}" />`
-    //    this.elem = `<img src='${name}' class= "player"/>`
-
-       
   }
  
 }

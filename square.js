@@ -5,22 +5,25 @@ this._blocked = false;
 this._player = null;
 this._weapon = null
   }
-
+  get blocked(){
+    return this._blocked
+  }
+  set blocked(b){
+    this._blocked = b;
+  }
+  get player(){
+    return this._player
+  }
   set player(p) {
     // model
-  sq.player = item;
-
-  let sq = this.model[row][col];
     this._player = p;
-    sq.blocked = true;
-
-    // view comes later…
+}
+get weapon(){
+  return this._weapon
 }
 set weapon(w) {
-  sq.weapon = item;
-  let sq = this.model[row][col];
   this._weapon = w;
-  sq.blocked = true;
+
 }
 
   }
