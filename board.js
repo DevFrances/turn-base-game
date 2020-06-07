@@ -52,8 +52,8 @@ class Board{
             $(box).addClass('barrier'); //blocks the square with a class barrier
           }
           else{
-            sq.player = item
-            sq.weapon = item
+            sq.player =item  instanceof (player) && item.elem
+            sq.weapon = item instanceof (weapon) && item.elem
           // box.innerHTML += `<img src='${item['_image']}'/>`
             box.innerHTML = item.elem;
           }
@@ -64,7 +64,7 @@ class Board{
           this.placeItem(players[i], "player")
         }
       }
-      renderWeapons() {
+      renderWeapons(weapons) {
         for (let i = 0; i < weapons.length; i++){
           this.placeItem(weapons[i], "weapon")
         }
