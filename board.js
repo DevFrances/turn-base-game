@@ -51,12 +51,16 @@ class Board{
             sq.blocked = true;  //updates the block square
             $(box).addClass('barrier'); //blocks the square with a class barrier
           }
-          else{
-            sq.player =item  instanceof (player) && item.elem
-            sq.weapon = item instanceof (weapon) && item.elem
-          // box.innerHTML += `<img src='${item['_image']}'/>`
-            box.innerHTML = item.elem;
+          else if(item === player){
+              sq.player = item  instanceof (player)
+              box.innerHTML = item.elem;
+          
           }
+         else{
+          sq.weapon = item instanceof (weapon)
+          box.innerHTML = item.elem;
+
+         }
         }
       }
       renderPlayers(players) {
