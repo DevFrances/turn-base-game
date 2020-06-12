@@ -1,5 +1,5 @@
 // define and place players on the board
-class player{
+class Player{
   constructor(name, image, health){
       this._name = name;
       this._image = image

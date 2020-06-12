@@ -1,4 +1,4 @@
-class weapon {
+class Weapon {
     constructor(name, damage, image){
         this._name = name;
         this._damage = damage;

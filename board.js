@@ -3,9 +3,13 @@ class Board{
   constructor(players){
    this.model = this._createModel();
     this.start();
+    this.playerPositions ={
+
+    }
     this.renderPlayers(players);
     this.renderWeapons(weapons);
     this.renderObstacles();
+  
   }
 
   _createModel(){
@@ -51,15 +55,16 @@ class Board{
             sq.blocked = true;  //updates the block square
             $(box).addClass('barrier'); //blocks the square with a class barrier
           }
-          else if(item === player){
-              sq.player = item  instanceof (player)
+          else if(item instanceof Player){
+              sq.player = item 
+              this.playerPositions[item._name] = { row: row, col: col }
               box.innerHTML = item.elem;
           
           }
          else{
-          sq.weapon = item instanceof (weapon)
+          sq.weapon = item
           box.innerHTML = item.elem;
-
+        
          }
         }
       }
@@ -82,11 +87,12 @@ class Board{
          getRandomNumber(length) {
             return Math.floor(Math.random() * length)
           };
+         
           movePlayer(){
             let pos1 = { row: 3, col: 4 };  // position where player is now
             let pos2 = { row: 3, col: 2 };  // position where you want to move player
-            let box1 = Board.getBoxByPos(pos1);
-            let box2 = Board.getBoxByPos(pos2);
+            let box1 = this.model[pos1.row][pos1.col];
+            let box2 = this.model[pos2.row][pos2.col];
             let p = box1.player;  // get player from box1
             box1.player = null;  // remove player from box1
             box2.player = p;  // place player in box2
