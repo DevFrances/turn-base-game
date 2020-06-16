@@ -12,11 +12,16 @@ this._weapon = null
     this._blocked = b;
   }
   get player(){
-    return this._player
+    return this._player; 
   }
   set player(p) {
     // model
     this._player = p;
+    // if(p === null){
+    //   $(item.elem).row.removeChild(box)
+    // }else{
+    //   $(p.elem).appendChild(box);
+    // }
 }
 get weapon(){
   return this._weapon

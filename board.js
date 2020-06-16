@@ -4,8 +4,9 @@ class Board{
    this.model = this._createModel();
     this.start();
     this.playerPositions ={
-
+      // row: 'row', col: 'col'
     }
+    this.movePlayer();
     this.renderPlayers(players);
     this.renderWeapons(weapons);
     this.renderObstacles();
@@ -58,6 +59,7 @@ class Board{
           else if(item instanceof Player){
               sq.player = item 
               this.playerPositions[item._name] = { row: row, col: col }
+              console.log(this.playerPositions[item._name])
               box.innerHTML = item.elem;
           
           }
@@ -88,14 +90,23 @@ class Board{
             return Math.floor(Math.random() * length)
           };
          
-          movePlayer(){
-            let pos1 = { row: 3, col: 4 };  // position where player is now
-            let pos2 = { row: 3, col: 2 };  // position where you want to move player
-            let box1 = this.model[pos1.row][pos1.col];
-            let box2 = this.model[pos2.row][pos2.col];
-            let p = box1.player;  // get player from box1
-            box1.player = null;  // remove player from box1
-            box2.player = p;  // place player in box2
+          movePlayer(newPos){
+            let pos1 ='sq-${row}-${col}';
+            console.log(pos1)
+
+           // let box1 = this.model[pos1.col][pos1.col];
+           // console.log(box1)
+
+
+
+           // let pos2 = { row:row, col:col };  // position where player is now
+           // console.log(pos2);
+                // position where you want to move player
+            // console.log(pos2)
+            //let box2 = this.model[pos2.row][pos2.col];
+           // let p = box1.player;  // get player from box1
+           // box1.player = null;  // remove player from box1
+           // box2.player = p;  // place player in box2
           }
       
 }

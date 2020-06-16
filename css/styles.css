@@ -1,59 +1,111 @@
 
-.box {
-	border: black 1px solid;
-	border-radius:5px 5px 5px 5px;
-	width: 60px;
-	height: 60px;
+#wrapper{
+	/* margin: 0 auto; */
+	width: 100%;
+	/* border: 5px solid red; */
+	display: flex;
+	justify-content: center;
+	/* padding: 50px; */
 	margin: 0 auto;
-	margin-top: 0;
-	cursor: pointer;
-	display: inline-block;
-	float: left;
-	display:grid
+}
+.redMan, .blackMan{
+	height: 570px;
+	width: 50%;
+	border: 1px solid black;
+	border-radius: 10px 10px 10px 10px;
+}
+.redMan img, .blackMan img{
+	height: 250px!important;
+	width: 100%!important;
+	/* display: block; */
 }
 
+.box {
+	border: black 1px solid;
+	border-radius:8px 8px 8px 8px;
+	width: 80px;
+	height: 80px;
+	display: flex;
+	justify-content:center;
+
+	flex-wrap: wrap;
+	/* flex-direction: row; */
+	/* justify-content:space-evenly; */
+	margin-top: 0;
+	cursor: pointer;
+	/* flex-wrap: wrap; */
+	/* float: left; */
+	/* clear: left; */
+	/* margin-right: 40px; */
+	/* display:inlineblock; */
+	/* margin-left:200px; */
+	/* margin-bottom: 0; */
+}
+
+.weapon-wrap{
+	display: flex;
+	justify-content:center;
+	margin: 0 auto;
+	border: 1px solid black;
+	border-radius: 15px;
+	padding: 50px;
+	width: 40%;
+	margin-bottom: 20px;
+}
+.weapons{
+	display: flex;
+	justify-content: space-around;
+	/* padding: 50px; */
+	/* height: 80px; */
+
+}
+.weaponize{
+	display: flex;
+	justify-content: space-around;
+	padding: 10px;
+}
 .row {
-	display: block;
-	float:left;
+	display: flex;
 	width:100%;
+	margin-left: 30px;
+	margin-right: 30px;
+
 }
 
 img{
-	width: 60px;
-	height: 60px;
+	width: 80px;
+	height: 80px;
+	/* background-size: cover; */
 }
-img .weapon1{
-	width: 60px;
-	height: 60px;
+/* img .weapon1{
+	width: 0px;
+	height: 0px;
 }
 img .weapon2{
-	width: 60px;
-	height: 60px;
+	width: 80px;
+	height: 80px;
 }
 img .weapon3{
-	width: 60px;
-	height: 60px;
+	width: 80px;
+	height: 80px;
 }
 img .weapon4{
-	width: 60px;
-	height: 60px;
+	width: 80px;
+	height: 80px;
 }
 img .player1{
-	width: 60px;
-	height: 60px;
+	width: 80px;
+	height: 80px;
 }
 img .player2{
-	width: 60px;
-	height: 60px;
-}
-#wrapper{
-	margin: 20px auto;
-	width: 50%;
-}
+	width: 80px;
+	height: 80px;
+} */
+
 .barrier {
 	background-image: url('../images/brick.jpeg');
 	background-repeat: no-repeat;
 	background-size: cover;
-	width: 60px;
-	height: 60px;
+	/* width: 80px;
+	height: 80px; */
 }
