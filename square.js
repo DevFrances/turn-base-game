@@ -1,6 +1,6 @@
 class Square{
   constructor(row, col){
-this.id = 'sq-${row}-${col}';
+this.id = `sq-${row}-${col}`;
 this._blocked = false;
 this._player = null;
 this._weapon = null
