@@ -10,9 +10,40 @@ class Board{
     this.renderWeapons(weapons);
     this.renderObstacles();
     this.movePlayer({row:0, col:0});
-  
+    //this.assignCurrentPlayer();
+   // this.switchTurn();
   }
 
+  assignCurrentPlayer(){
+    console.log('assign current player');
+  }
+  switchTurn() {
+    console.log("picking our first player!");
+    // this function needs to access the player positions object
+    console.log(this.playerPositions);
+    // pick a random player from this object
+    // do you
+    let currentPlayer = this.playerPositions.redMan;
+
+    // highlight current player
+    $(currentPlayer).addClass("current-player");
+    //
+
+    // you'd get the adjacent cells
+    // you need to get all of the steps a player could make
+    this.getAdjacentCells(currentPlayer);
+    // here
+  }
+  
+  getAdjacentCells({ row, col }) {
+    // row: 1, col: 5
+
+    let box = $(`#${row}-${col}`);
+    console.log("what's up?");
+    console.log(box);
+    // represent the number of allowed steps
+    let topCells = $(`#${row + 2}-${col}`);
+  }
   _createModel(){
    let model = [] // model[2][3] is row 3, column 4 (since first row is 0)
     for (let r=0; r < 9; r++) {
@@ -30,6 +61,8 @@ class Board{
         row.className = "row";
         for (let cols = 0; cols < 9; cols++) {
             let box = document.createElement('div');
+        //this.box = box;
+
             $(box).attr('id', `${rows}-${cols}`);
             box.className = "box";
             row.appendChild(box);
