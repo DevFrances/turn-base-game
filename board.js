@@ -9,7 +9,7 @@ class Board{
     this.renderPlayers(players);
     this.renderWeapons(weapons);
     this.renderObstacles();
-    this.movePlayer({row:0, col:0});
+    this.movePlayer({row:2, col:2});
     //this.assignCurrentPlayer();
    // this.switchTurn();
   }
