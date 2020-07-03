@@ -1,38 +1,43 @@
 
 class Board{
-  constructor(players){
+  constructor(players, weapons){
    this.model = this._createModel();
     this.start();
     this.playerPositions ={
-       //row: row, col: col
+       
     }
     this.renderPlayers(players);
     this.renderWeapons(weapons);
     this.renderObstacles();
-    this.movePlayer({row:2, col:2});
-    //this.assignCurrentPlayer();
-   // this.switchTurn();
-  }
+   // this.movePlayer({row:2, col:2});
+    //this.initPlayer();
+   // this.getAdjacentCells();
+    //this.switchTurn();
+    this.activePlayer = "redMan";
+   // this.players = players
+    //this.weapons = weapons
 
-  assignCurrentPlayer(){
-    console.log('assign current player');
   }
+  // initPlayer(){
+  //   let { redMan, blackMan } = this.playerPositions
+  //   let players = { redMan, blackMan }
+  //   //let [ currentPlayer ] = Object.keys(players);
+  //   let currentPlayer = players[Object.keys(players)[0]]
+  //   this.active = currentPlayer;
+  //   console.log(this.players)
+    
+  // console.log(currentPlayer);
+  // }
   switchTurn() {
+    if(this.activePlayer === "redMan"){
+      this.activePlayer = "blackMan"
+    }else{
+      this.activePlayer = "redMan"
+    }
     console.log("picking our first player!");
     // this function needs to access the player positions object
     console.log(this.playerPositions);
-    // pick a random player from this object
-    // do you
-    let currentPlayer = this.playerPositions.redMan;
 
-    // highlight current player
-    $(currentPlayer).addClass("current-player");
-    //
-
-    // you'd get the adjacent cells
-    // you need to get all of the steps a player could make
-    this.getAdjacentCells(currentPlayer);
-    // here
   }
   
   getAdjacentCells({ row, col }) {
@@ -43,6 +48,11 @@ class Board{
     console.log(box);
     // represent the number of allowed steps
     let topCells = $(`#${row + 2}-${col}`);
+    let rightCells =$(`#${row + 2}-${col}`);
+    let bottomCells =$(`#${row + 2}-${col}`);
+    let leftCells =$(`#${row + 2}-${col}`);
+
+    return [topCells, rightCells, bottomCells, leftCells]
   }
   _createModel(){
    let model = [] // model[2][3] is row 3, column 4 (since first row is 0)
@@ -133,7 +143,8 @@ class Board{
           sq.player = null //removes the player
           newSq.player = p 
           console.log(newSq)
-           
+           this.playerPositions.redMan = newPos //updates the position of redMAn
+           this.switchTurn();
          }
       
 }
