@@ -9,37 +9,29 @@ class Board{
     this.renderPlayers(players);
     this.renderWeapons(weapons);
     this.renderObstacles();
-   // this.movePlayer({row:2, col:2});
-    //this.initPlayer();
    // this.getAdjacentCells();
-    //this.switchTurn();
-    this.activePlayer = "redMan";
-   // this.players = players
-    //this.weapons = weapons
-
+    const [redMan] = players;
+    this.activePlayer = redMan
+    this.players = players;
   }
-  // initPlayer(){
-  //   let { redMan, blackMan } = this.playerPositions
-  //   let players = { redMan, blackMan }
-  //   //let [ currentPlayer ] = Object.keys(players);
-  //   let currentPlayer = players[Object.keys(players)[0]]
-  //   this.active = currentPlayer;
-  //   console.log(this.players)
-    
-  // console.log(currentPlayer);
-  // }
+ 
   switchTurn() {
-    if(this.activePlayer === "redMan"){
-      this.activePlayer = "blackMan"
-    }else{
-      this.activePlayer = "redMan"
+    if(this.activePlayer._name === "redMan"){
+      console.log("redMan")
+      this.activePlayer = this.players[1]
+      console.log(this.players[1]);
     }
-    console.log("picking our first player!");
-    // this function needs to access the player positions object
-    console.log(this.playerPositions);
+
+    else if(this.activePlayer._name === "blackMan" ){
+      this.activePlayer = players[0]
+      console.log("blackMan")
+    }
+  
+    }
+
+  pickWeapon(){
 
   }
-  
   getAdjacentCells({ row, col }) {
     // row: 1, col: 5
 
@@ -134,17 +126,20 @@ class Board{
           };
          
          movePlayer(newPos){
-           let pos1 = this.playerPositions.redMan; 
-           console.log(pos1)
-          let sq = this.model[pos1.row][pos1.col]; //determine the row and col, find the square
+          // let pos1 = this.playerPositions.redMan; 
+           //console.log(pos1)
+          let sq = this.model[newPos.row][newPos.col]; //determine the row and col, find the square
           console.log(sq)
           let newSq = this.model[newPos.row][newPos.col]
           let p = sq.player //gets player from the square
-          sq.player = null //removes the player
+          console.log(p)
+          sq.player = this.activePlayer 
+          console.log(newPos)//removes the player
           newSq.player = p 
           console.log(newSq)
-           this.playerPositions.redMan = newPos //updates the position of redMAn
+           this.playerPositions[this.activePlayer] = newPos //updates the position of redMAn
            this.switchTurn();
+           console.log(newPos)
          }
       
 }

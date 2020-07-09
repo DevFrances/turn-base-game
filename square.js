@@ -14,7 +14,9 @@ this._weapon = null
   get player(){
     return this._player; 
   }
-  set player(p) {   
+  set player(p) { 
+    //console.log(p)
+
     if(p === null){
      $('#'+this._player._name).remove()
     }else{
