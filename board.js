@@ -22,9 +22,10 @@ class Board{
       console.log(this.players[1]);
     }
 
-    else if(this.activePlayer._name === "blackMan" ){
+    else {
       this.activePlayer = players[0]
       console.log("blackMan")
+      console.log(this.players[0])
     }
   
     }
@@ -126,21 +127,38 @@ class Board{
           };
          
          movePlayer(newPos){
-          // let pos1 = this.playerPositions.redMan; 
+          let pos1 = this.playerPositions[this.activePlayer._name]; 
            //console.log(pos1)
-          let sq = this.model[newPos.row][newPos.col]; //determine the row and col, find the square
+           //let newPos = 
+          let sq = this.model[pos1.row][pos1.col]; //determine the row and col, find the square
           console.log(sq)
           let newSq = this.model[newPos.row][newPos.col]
           let p = sq.player //gets player from the square
-          console.log(p)
-          sq.player = this.activePlayer 
-          console.log(newPos)//removes the player
+          sq.player = null//removes the player
+          console.log(newPos)
           newSq.player = p 
           console.log(newSq)
-           this.playerPositions[this.activePlayer] = newPos //updates the position of redMAn
+           this.playerPositions[this.activePlayer._name] = newPos //updates the position of redMAn
            this.switchTurn();
            console.log(newPos)
          }
       
 }
 
+
+
+
+
+
+// validMoves(pos){
+//   let moves = [];
+//   // squares above the current position
+//   for(let i = 1; i < 4; i++){
+//     let newRow = pos.row-i
+//     if(newRow < 0 ){
+//       break;
+//     }
+//     let sq = this.model[pos.row][pos.col]; //determine the row and col, find the square
+
+//   }
+// }
