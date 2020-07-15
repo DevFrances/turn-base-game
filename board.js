@@ -13,8 +13,99 @@ class Board{
     const [redMan] = players;
     this.activePlayer = redMan
     this.players = players;
+    console.log(this.playerPositions[this.activePlayer._name]
+      )
+    // this.validMoves(pos);
+    this.validMoves(this.playerPositions[this.activePlayer._name])
+
+
   }
- 
+  highlightValidMoves(validMoves){
+    
+    console.log(validMoves);
+   return validMoves.forEach(square => {
+      return $(`#${square.row}-${square.col}`).addClass("valid");
+      }
+      )
+  }
+
+
+  validMoves(pos){
+    let validSquares = [];
+    // squares above the current position
+    for(let i = 1; i < 4; i++){
+      let newRow = pos.row-i
+      if(newRow < 0 ){
+        console.log(newRow)
+        console.log(pos)
+        break;
+
+      }else if ($(`#${newRow}-${pos.col}`).hasClass("barrier"))
+       { 
+        
+        console.log(newRow)
+        console.log(pos)
+        break;
+        
+       }else if ($(`#${newRow}-${pos.col}`).hasClass("player")){
+        console.log(newRow)
+        console.log(pos)
+        break;
+       }
+       else{
+        // console.log("hey Chiamaka");
+        console.log(`Yeah: ${newRow}-${pos.col}`);
+        validSquares.push({ row: newRow, col: pos.col }
+          )
+        console.log(newRow)
+        console.log(pos)
+       }
+
+      let sq = this.model[pos.row][pos.col]; //determine the row and col, find the square
+    this.highlightValidMoves(validSquares)
+  
+    }
+    // square below the current position
+    for(let i = 1; i < 4; i++){
+      let newCol = pos.col-i
+      if(newCol < 0 ){
+        console.log(newCol)
+        console.log(pos)
+        break;
+      console.log('hey girl')
+      }else if ($(`#${newCol}-${pos.col}`).hasClass("barrier"))
+       { 
+      console.log('hey girl')
+        
+        console.log(newCol)
+        console.log(pos)
+        break;
+        
+       }else if ($(`#${newCol}-${pos.col}`).hasClass("player")){
+      console.log('hey girl')
+
+        console.log(newCol)
+        console.log(pos)
+        break;
+       }
+       else{
+        // console.log("hey Chiamaka");
+      console.log('hey girl')
+
+        console.log(`Yeah: ${newCol}-${pos.col}`);
+        validSquares.push({ row: newCol, col: pos.col }
+          )
+        console.log(newCol)
+        console.log(pos)
+       }
+
+      let sq = this.model[pos.row][pos.col]; 
+  
+    }
+    this.highlightValidMoves(validSquares)
+   
+    
+  }
   switchTurn() {
     if(this.activePlayer._name === "redMan"){
       console.log("redMan")
@@ -139,6 +230,7 @@ class Board{
           newSq.player = p 
           console.log(newSq)
            this.playerPositions[this.activePlayer._name] = newPos //updates the position of redMAn
+
            this.switchTurn();
            console.log(newPos)
          }
@@ -150,15 +242,3 @@ class Board{
 
 
 
-// validMoves(pos){
-//   let moves = [];
-//   // squares above the current position
-//   for(let i = 1; i < 4; i++){
-//     let newRow = pos.row-i
-//     if(newRow < 0 ){
-//       break;
-//     }
-//     let sq = this.model[pos.row][pos.col]; //determine the row and col, find the square
-
-//   }
-// }
