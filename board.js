@@ -16,15 +16,19 @@ class Board{
     console.log(this.playerPositions[this.activePlayer._name]
       )
     // this.validMoves(pos);
-    this.validMoves(this.playerPositions[this.activePlayer._name])
+   let validMoves = this.validMoves(this.playerPositions[this.activePlayer._name]) 
+    this.highlightValidMoves(validMoves)
 
 
   }
   highlightValidMoves(validMoves){
-    
+
     console.log(validMoves);
-   return validMoves.forEach(square => {
-      return $(`#${square.row}-${square.col}`).addClass("valid");
+    validMoves.forEach(square => {
+    //console.log(this.model[square.row][square.col])
+
+       $(`#${square.id}`).addClass("valid");
+
       }
       )
   }
@@ -34,78 +38,107 @@ class Board{
     let validSquares = [];
     // squares above the current position
     for(let i = 1; i < 4; i++){
+
       let newRow = pos.row-i
       if(newRow < 0 ){
         console.log(newRow)
         console.log(pos)
+        console.log(this.model)
+        console.log(this.model[pos.row])
+        console.log(this.model[pos.row][pos.col])
+        console.log(this.activePlayer)
         break;
 
-      }else if ($(`#${newRow}-${pos.col}`).hasClass("barrier"))
-       { 
-        
-        console.log(newRow)
-        console.log(pos)
+      }
+      let sq = this.model[newRow][pos.col]
+      if (sq.blocked || sq.player) {
         break;
-        
-       }else if ($(`#${newRow}-${pos.col}`).hasClass("player")){
-        console.log(newRow)
-        console.log(pos)
-        break;
-       }
-       else{
-        // console.log("hey Chiamaka");
-        console.log(`Yeah: ${newRow}-${pos.col}`);
-        validSquares.push({ row: newRow, col: pos.col }
-          )
-        console.log(newRow)
-        console.log(pos)
-       }
-
-      let sq = this.model[pos.row][pos.col]; //determine the row and col, find the square
-    this.highlightValidMoves(validSquares)
+      }
+      validSquares.push(sq);
   
     }
-    // square below the current position
+    //squares below the current position
     for(let i = 1; i < 4; i++){
-      let newCol = pos.col-i
-      if(newCol < 0 ){
-        console.log(newCol)
-        console.log(pos)
-        break;
-      console.log('hey girl')
-      }else if ($(`#${newCol}-${pos.col}`).hasClass("barrier"))
-       { 
-      console.log('hey girl')
-        
-        console.log(newCol)
-        console.log(pos)
-        break;
-        
-       }else if ($(`#${newCol}-${pos.col}`).hasClass("player")){
-      console.log('hey girl')
 
-        console.log(newCol)
+      let newRow = pos.row+i
+      if(newRow >= this.model.length ){
+        console.log(newRow)
         console.log(pos)
+        console.log(this.model)
+        console.log(this.model[pos.row])
+        console.log(this.model[pos.row][pos.col])
+        console.log(this.activePlayer)
         break;
-       }
-       else{
-        // console.log("hey Chiamaka");
-      console.log('hey girl')
 
-        console.log(`Yeah: ${newCol}-${pos.col}`);
-        validSquares.push({ row: newCol, col: pos.col }
-          )
-        console.log(newCol)
-        console.log(pos)
-       }
-
-      let sq = this.model[pos.row][pos.col]; 
+      }
+      let sq = this.model[newRow][pos.col]
+      if (sq.blocked || sq.player) {
+        break;
+      }
+      validSquares.push(sq);
   
     }
-    this.highlightValidMoves(validSquares)
-   
+   //squares left of the current position
+   for(let i = 1; i < 4; i++){
+    let newCol = pos.col-i
+  //   if(newCol < 0){
+  //     break;
+  //   }
+  //   let sq = this.model[newCol][pos.col]
+  //   if (sq.blocked || sq.player) {
+  //    break;
+  //  }
+  // validSquares.push(sq);
+
     
+     $(`#${pos.row}-${newCol}`).addClass("valid")
+    
+  if($(`#${pos.row}-${newCol}`).hasClass("barrier")  ) {
+    $(`#${pos.row}-${newCol}`).removeClass("valid")
+    console.log("test")
+    break;
+  
   }
+ if ($(`#${pos.row}-${newCol}`).hasClass("player")){
+    break;
+  }
+}
+  
+   //squares right of the current position
+    for(let i = 1; i < 4; i++){
+    let newCol = pos.col+i
+    //  if(newCol >= this.model.length){
+    //   break;
+    // }
+    // let sq = this.model[newCol][pos.col]
+    // if (sq.blocked || sq.player) {
+    //   break;
+    // }
+    // validSquares.push(sq);
+  
+   $(`#${pos.row}-${newCol}`)
+   .addClass("valid");
+  
+  $(`#${pos.row}-${newCol}`).addClass("valid")
+    
+  if($(`#${pos.row}-${newCol}`).hasClass("barrier")  ) {
+    $(`#${pos.row}-${newCol}`).removeClass("valid")
+    console.log("test")
+    break;
+  
+  }
+
+ if ($(`#${pos.row}-${newCol}`).hasClass("player")){
+    break;
+  
+   }
+    return validSquares
+
+  }
+   }
+  
+
+
   switchTurn() {
     if(this.activePlayer._name === "redMan"){
       console.log("redMan")
@@ -120,24 +153,16 @@ class Board{
     }
   
     }
-
+   
+      
   pickWeapon(){
 
   }
-  getAdjacentCells({ row, col }) {
-    // row: 1, col: 5
-
-    let box = $(`#${row}-${col}`);
-    console.log("what's up?");
-    console.log(box);
-    // represent the number of allowed steps
-    let topCells = $(`#${row + 2}-${col}`);
-    let rightCells =$(`#${row + 2}-${col}`);
-    let bottomCells =$(`#${row + 2}-${col}`);
-    let leftCells =$(`#${row + 2}-${col}`);
-
-    return [topCells, rightCells, bottomCells, leftCells]
-  }
+  //console.log($)
+  // $('.valid').click(function (event) {
+  //   console.log(event.target)
+  //   }
+  //   );
   _createModel(){
    let model = [] // model[2][3] is row 3, column 4 (since first row is 0)
     for (let r=0; r < 9; r++) {
