@@ -16,12 +16,44 @@ class Board{
     console.log(this.playerPositions[this.activePlayer._name]
       )
     // this.validMoves(pos);
-   let validMoves = this.validMoves(this.playerPositions[this.activePlayer._name]) 
-    this.highlightValidMoves(validMoves)
+    // this.validSquares = [];
 
+   this.validSquares = this.validMoves(this.playerPositions[this.activePlayer._name]) 
+   console.log(this.validSquares)
+  //  console.log(validMoves)
+  //  this.validSquares()
+   this.highlightValidMoves(this.validSquares)
+  //  this.clickHandler();
+    //  this.switchTurn()
+      
+     //line 29 to identify
+        $("#boxParent").on("click",  (e)=>{
+          console.log(event.target)
+          console.log(Object.keys(event.target));
+          console.log(event.target.id);
+           const [row, col] = event.target.id.split("-");
+      let sq = this.model[row][col]
+ 
+           if(this.validSquares.includes(sq) === false){// test if its a valid square,ignore
+            console.log('hello')
+            return
+          }
+   this.removeHighlight(this.validSquares) 
+         this.movePlayer({ row, col});
+     this.switchTurn()
+   this.validSquares = this.validMoves(this.playerPositions[this.activePlayer._name]) //re compute new valid sqs for the new active player
+     this.highlightValidMoves(this.validSquares)
 
+         
+
+        })
   }
+   
+
+  
+ 
   highlightValidMoves(validMoves){
+    console.log(this.validSquares)
 
     console.log(validMoves);
     validMoves.forEach(square => {
@@ -33,7 +65,18 @@ class Board{
       )
   }
 
+  removeHighlight(validMoves){
+    console.log(validMoves)
 
+    console.log(validMoves);
+    validMoves.forEach(square => {
+    //console.log(this.model[square.row][square.col])
+console.log(square)
+       $(`#${square.id}`).removeClass("valid");
+
+      }
+      )
+  }
   validMoves(pos){
     let validSquares = [];
     // squares above the current position
@@ -51,12 +94,14 @@ class Board{
 
       }
       let sq = this.model[newRow][pos.col]
+
       if (sq.blocked || sq.player) {
         break;
       }
       validSquares.push(sq);
   
     }
+
     //squares below the current position
     for(let i = 1; i < 4; i++){
 
@@ -72,6 +117,7 @@ class Board{
 
       }
       let sq = this.model[newRow][pos.col]
+
       if (sq.blocked || sq.player) {
         break;
       }
@@ -81,75 +127,63 @@ class Board{
    //squares left of the current position
    for(let i = 1; i < 4; i++){
     let newCol = pos.col-i
-  //   if(newCol < 0){
-  //     break;
-  //   }
-  //   let sq = this.model[newCol][pos.col]
-  //   if (sq.blocked || sq.player) {
-  //    break;
-  //  }
-  // validSquares.push(sq);
-
-    
-     $(`#${pos.row}-${newCol}`).addClass("valid")
-    
-  if($(`#${pos.row}-${newCol}`).hasClass("barrier")  ) {
-    $(`#${pos.row}-${newCol}`).removeClass("valid")
-    console.log("test")
-    break;
-  
-  }
- if ($(`#${pos.row}-${newCol}`).hasClass("player")){
-    break;
-  }
-}
-  
-   //squares right of the current position
-    for(let i = 1; i < 4; i++){
-    let newCol = pos.col+i
-    //  if(newCol >= this.model.length){
-    //   break;
-    // }
-    // let sq = this.model[newCol][pos.col]
-    // if (sq.blocked || sq.player) {
-    //   break;
-    // }
-    // validSquares.push(sq);
-  
-   $(`#${pos.row}-${newCol}`)
-   .addClass("valid");
-  
-  $(`#${pos.row}-${newCol}`).addClass("valid")
-    
-  if($(`#${pos.row}-${newCol}`).hasClass("barrier")  ) {
-    $(`#${pos.row}-${newCol}`).removeClass("valid")
-    console.log("test")
-    break;
-  
-  }
-
- if ($(`#${pos.row}-${newCol}`).hasClass("player")){
-    break;
-  
+    if(newCol < 0){
+      break;
+    }
+    let sq = this.model[pos.row][newCol]
+    if (sq.blocked || sq.player) {
+     break;
    }
+   validSquares.push(sq);
+
+  }
+     //squares right of the current position
+     for(let i = 1; i < 4; i++){
+      let newCol = pos.col+i
+       if(newCol >= this.model.length){
+        break;
+      }
+      let sq = this.model[pos.row][newCol]
+  
+      if (sq.blocked || sq.player) {
+        break;
+      }
+       validSquares.push(sq);
+    
+    
+    
+     }
+     this.validSquares = validSquares;
+
     return validSquares
 
-  }
    }
   
 
 
   switchTurn() {
+    console.log(this.activePlayer)
     if(this.activePlayer._name === "redMan"){
       console.log("redMan")
       this.activePlayer = this.players[1]
       console.log(this.players[1]);
+console.log(this.validSquares)
+//this.validSquares
+
+    // this.highlightValidMoves(this.validSquares)
+    //  console.log(this.validMoves)
     }
 
     else {
       this.activePlayer = players[0]
       console.log("blackMan")
       console.log(this.players[0])
+      console.log(this.validSquares)
+//this.validSquares
+
+    // this.highlightValidMoves(this.validSquares)
+   
+      //console.log(this.validMoves)
     }
   
     }
@@ -158,11 +192,7 @@ class Board{
   pickWeapon(){
 
   }
-  //console.log($)
-  // $('.valid').click(function (event) {
-  //   console.log(event.target)
-  //   }
-  //   );
+ 
   _createModel(){
    let model = [] // model[2][3] is row 3, column 4 (since first row is 0)
     for (let r=0; r < 9; r++) {
@@ -255,15 +285,38 @@ class Board{
           newSq.player = p 
           console.log(newSq)
            this.playerPositions[this.activePlayer._name] = newPos //updates the position of redMAn
-
+          console.log(this.validSquares)
+          this.removeHighlight(this.validSquares)
            this.switchTurn();
+           console.log(this.activePlayer._name)
            console.log(newPos)
          }
       
 }
 
+// step 1
+/*
+declare a clickhandler
+add an eventlistenre to the entire board
+when an event happens, print to the console the id of the square
+*/ 
 
+// step 2
+/*
+clickHandler(e){
+ 1. determine the row and col where the click occured
+ if (sq.blocked || sq.player) {
+        return
+      }
+ 
+ 2. turn off the hightlight to reset the valid squares
+ 3. move the player
+ 4.this.switchPlayer();
 
+*** check if opponent is in a adjacent square, activate fight mode(comes before step 5)
+ 5. highlight valid squares for new active player
+}
 
+*/ 
 
 
