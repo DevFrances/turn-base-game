@@ -15,50 +15,52 @@ class Board{
     this.players = players;
     console.log(this.playerPositions[this.activePlayer._name]
       )
-    // this.validMoves(pos);
-    // this.validSquares = [];
-
    this.validSquares = this.validMoves(this.playerPositions[this.activePlayer._name]) 
    console.log(this.validSquares)
-  //  console.log(validMoves)
-  //  this.validSquares()
+  
    this.highlightValidMoves(this.validSquares)
-  //  this.clickHandler();
-    //  this.switchTurn()
-      
-     //line 29 to identify
+
+      $('.button').on('click',(e)=>{
+        console.log(e.target)
+      })
+    
         $("#boxParent").on("click",  (e)=>{
-          console.log(event.target)
+          console.log(event)
           console.log(Object.keys(event.target));
           console.log(event.target.id);
+          let cell = event.target
+          if(event.target.id === "dynamite" || event.target.id === "bomb" || event.target.id === "knife" || event.target.id === "gun"){
+            this.pickWeapon(event.target.parentElement)
+          }else{          
            const [row, col] = event.target.id.split("-");
-      let sq = this.model[row][col]
- 
+           const parsedRow = parseInt(row)
+           const parsedCol = parseInt(col)
+
+       let sq = this.model[parsedRow][parsedCol]
+     
+ console.log(sq)
            if(this.validSquares.includes(sq) === false){// test if its a valid square,ignore
             console.log('hello')
             return
           }
    this.removeHighlight(this.validSquares) 
-         this.movePlayer({ row, col});
+         this.movePlayer({ row:parsedRow, col:parsedCol});
      this.switchTurn()
    this.validSquares = this.validMoves(this.playerPositions[this.activePlayer._name]) //re compute new valid sqs for the new active player
      this.highlightValidMoves(this.validSquares)
-
-         
+        }
+       
 
         })
-  }
-   
+        
+      }
 
-  
- 
+
   highlightValidMoves(validMoves){
     console.log(this.validSquares)
 
     console.log(validMoves);
     validMoves.forEach(square => {
-    //console.log(this.model[square.row][square.col])
-
        $(`#${square.id}`).addClass("valid");
 
       }
@@ -70,7 +72,6 @@ class Board{
 
     console.log(validMoves);
     validMoves.forEach(square => {
-    //console.log(this.model[square.row][square.col])
 console.log(square)
        $(`#${square.id}`).removeClass("valid");
 
@@ -168,28 +169,35 @@ console.log(square)
       this.activePlayer = this.players[1]
       console.log(this.players[1]);
 console.log(this.validSquares)
-//this.validSquares
-
-    // this.highlightValidMoves(this.validSquares)
-    //  console.log(this.validMoves)
     }
 
     else {
-      this.activePlayer = players[0]
+      this.activePlayer = this.players[0]
       console.log("blackMan")
       console.log(this.players[0])
       console.log(this.validSquares)
-//this.validSquares
-
-    // this.highlightValidMoves(this.validSquares)
-   
-      //console.log(this.validMoves)
     }
   
     }
    
       
-  pickWeapon(){
+  pickWeapon(weapon){
+    console.log(this.activePlayer)
+    console.log(weapon)
+    const [row, col] = weapon.id.split("-");
+           const parsedRow = parseInt(row)
+           const parsedCol = parseInt(col)
+    let sq = this.model[parsedRow][parsedCol]
+    let weapons = sq._weapon
+    $(weapon).empty();
+this.movePlayer({ row: parsedRow, col: parsedCol }
+  )
+  this.removeHighlight(this.validSquares) 
+         this.movePlayer({ row:parsedRow, col:parsedCol});
+     this.switchTurn()
+   this.validSquares = this.validMoves(this.playerPositions[this.activePlayer._name]) //re compute new valid sqs for the new active player
+     this.highlightValidMoves(this.validSquares)
+    console.log(weapons)
 
   }
  
@@ -273,6 +281,7 @@ console.log(this.validSquares)
           };
          
          movePlayer(newPos){
+           console.log(newPos)
           let pos1 = this.playerPositions[this.activePlayer._name]; 
            //console.log(pos1)
            //let newPos = 
@@ -286,8 +295,7 @@ console.log(this.validSquares)
           console.log(newSq)
            this.playerPositions[this.activePlayer._name] = newPos //updates the position of redMAn
           console.log(this.validSquares)
-          this.removeHighlight(this.validSquares)
-           this.switchTurn();
+          
            console.log(this.activePlayer._name)
            console.log(newPos)
          }
