@@ -26,23 +26,35 @@ class Board{
     
         $("#boxParent").on("click",  (e)=>{
           console.log(event)
+          let row, col
+          
+          if(e.target.classList.contains('box') === false){
+             [row, col] = event.target.parentElement.id.split("-");
+          }else{
+            [row, col] = event.target.id.split("-");
+
+          }
           console.log(Object.keys(event.target));
           console.log(event.target.id);
-          let cell = event.target
-          if(event.target.id === "dynamite" || event.target.id === "bomb" || event.target.id === "knife" || event.target.id === "gun"){
+          // let cell = event.target
+          // const [row, col] = event.target.id.split("-");
+          const parsedRow = parseInt(row)
+          const parsedCol = parseInt(col)
+          let sq = this.model[parsedRow][parsedCol]
+     
+        console.log(sq)
+           if(this.validSquares.includes(sq) === false){// test if its a valid square,ignore
+            console.log('hello')
+            return
+          }
+          if(sq.weapon){
             this.pickWeapon(event.target.parentElement)
           }else{          
            const [row, col] = event.target.id.split("-");
            const parsedRow = parseInt(row)
            const parsedCol = parseInt(col)
 
-       let sq = this.model[parsedRow][parsedCol]
-     
- console.log(sq)
-           if(this.validSquares.includes(sq) === false){// test if its a valid square,ignore
-            console.log('hello')
-            return
-          }
+       
    this.removeHighlight(this.validSquares) 
          this.movePlayer({ row:parsedRow, col:parsedCol});
      this.switchTurn()
