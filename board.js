@@ -194,14 +194,17 @@ console.log(this.validSquares)
    
       
   pickWeapon(weapon){
-    console.log(this.activePlayer)
-    console.log(weapon)
+    let tmpvar
     const [row, col] = weapon.id.split("-");
            const parsedRow = parseInt(row)
            const parsedCol = parseInt(col)
     let sq = this.model[parsedRow][parsedCol]
-    let weapons = sq._weapon
+    let weapons = sq.weapon
     $(weapon).empty();
+    tmpvar = sq.weapon 
+sq.weapon = this.activePlayer.weapon
+console.log(this.activePlayer)
+this.activePlayer.weapon = tmpvar
 this.movePlayer({ row: parsedRow, col: parsedCol }
   )
   this.removeHighlight(this.validSquares) 

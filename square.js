@@ -30,6 +30,12 @@ get weapon(){
   return this._weapon
 }
 set weapon(w) {
+  if(w === null){
+    $('#'+this._weapon._name).remove()
+   }else{
+   let box = $(`#${this.id}`); //finds the div with the id for that sq
+     $(box).append(w.elem)
+   }
   this._weapon = w;
 
 }

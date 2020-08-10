@@ -1,8 +1,8 @@
 let player1Weapon = new Weapon(
-  "bottle", 5, "images/bomb.png"
+  "bottle", 5, "images/bottle.png"
 )
 let player2Weapon = new Weapon(
-  "bottle", 5, "images/bomb.png"
+  "bottle", 5, "images/bottle.png"
 )
 
 let player1 = new Player(
