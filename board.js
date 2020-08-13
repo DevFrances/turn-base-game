@@ -58,7 +58,9 @@ class Board{
    this.removeHighlight(this.validSquares) 
          this.movePlayer({ row:parsedRow, col:parsedCol});
      this.switchTurn()
-   this.validSquares = this.validMoves(this.playerPositions[this.activePlayer._name]) //re compute new valid sqs for the new active player
+  
+     this.validSquares = this.validMoves(this.playerPositions[this.activePlayer._name]) //re compute new valid sqs for the new active player
+    //  this.adjacentSquares = this.adjacentMoves(this.playerPositions[this.activePlayer._name]) //re compute new valid sqs for the new active player
      this.highlightValidMoves(this.validSquares)
         }
        
@@ -77,6 +79,11 @@ class Board{
 
       }
       )
+      // adjacentSquares.forEach(square => {
+      //   $(`#${square.id}`).addClass("adjacent");
+ 
+      //  }
+      //  )
   }
 
   removeHighlight(validMoves){

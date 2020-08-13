@@ -4,6 +4,7 @@ this.id = `${row}-${col}`;
 this._blocked = false;
 this._player = null;
 this._weapon = null
+
   }
   get blocked(){
     return this._blocked
@@ -21,7 +22,7 @@ this._weapon = null
      $('#'+this._player._name).remove()
     }else{
     let box = $(`#${this.id}`); //finds the div with the id for that sq
-      $(box).append(p.elem)
+      $(box).prepend(p.elem)
     }
      // model
      this._player = p;
@@ -31,8 +32,13 @@ get weapon(){
 }
 set weapon(w) {
   if(w === null){
-    $('#'+this._weapon._name).remove()
-   }else{
+    $('#'+this.weapon._name).remove()
+   }//else if(this._weapon && this._player){
+  // let box = $(`#${this.id}`); //finds the div with the id for that sq
+  //  $(box).addClass('hidden')
+
+   //}
+   else{
    let box = $(`#${this.id}`); //finds the div with the id for that sq
      $(box).append(w.elem)
    }
