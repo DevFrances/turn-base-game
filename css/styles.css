@@ -98,7 +98,7 @@ img{
 }
 .box > .player + .weapon { display: none }
 .adjacent{
-	box-shadow:4px 4px 4px 4px yellow;
+	box-shadow:4px 4px 4px 4px red;
 	opacity: 0.7;
 	padding:0.01em 0.01em;
 	z-index: 2;

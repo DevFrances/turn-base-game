@@ -13,16 +13,15 @@ class Board{
     const [redMan] = players;
     this.activePlayer = redMan
     this.players = players;
-    console.log(this.playerPositions[this.activePlayer._name]
-      )
-   this.validSquares = this.validMoves(this.playerPositions[this.activePlayer._name]) 
-   console.log(this.validSquares)
+    console.log(this.playerPositions[this.activePlayer._name])
+    this.validSquares = this.validMoves(this.playerPositions[this.activePlayer._name]) 
+    console.log(this.validSquares)
   
-   this.highlightValidMoves(this.validSquares)
+    this.highlightValidMoves(this.validSquares)
 
-      $('.button').on('click',(e)=>{
-        console.log(e.target)
-      })
+        $('.button').on('click',(e)=>{
+          console.log(e.target)
+        })
     
         $("#boxParent").on("click",  (e)=>{
           console.log(event)
@@ -36,32 +35,34 @@ class Board{
           }
           console.log(Object.keys(event.target));
           console.log(event.target.id);
-          // let cell = event.target
-          // const [row, col] = event.target.id.split("-");
           const parsedRow = parseInt(row)
           const parsedCol = parseInt(col)
           let sq = this.model[parsedRow][parsedCol]
      
-        console.log(sq)
+          console.log(sq)
            if(this.validSquares.includes(sq) === false){// test if its a valid square,ignore
             console.log('hello')
             return
           }
           if(sq.weapon){
             this.pickWeapon(event.target.parentElement)
-          }else{          
+          }
+          else{          
            const [row, col] = event.target.id.split("-");
            const parsedRow = parseInt(row)
            const parsedCol = parseInt(col)
 
        
-   this.removeHighlight(this.validSquares) 
+         this.removeHighlight(this.validSquares) 
          this.movePlayer({ row:parsedRow, col:parsedCol});
-     this.switchTurn()
+         this.switchTurn()
   
-     this.validSquares = this.validMoves(this.playerPositions[this.activePlayer._name]) //re compute new valid sqs for the new active player
-    //  this.adjacentSquares = this.adjacentMoves(this.playerPositions[this.activePlayer._name]) //re compute new valid sqs for the new active player
-     this.highlightValidMoves(this.validSquares)
+         this.validSquares = this.validMoves(this.playerPositions[this.activePlayer._name]) //re compute new valid sqs for the new active player
+         this.adjacentSquares = this.adjacentMoves(this.playerPositions[this.activePlayer._name]) //re compute new valid sqs for the new active player
+         if(this.adjacentSquares) { alert("fight") }
+
+         console.log(this.adjacentSquares)
+         this.highlightValidMoves(this.validSquares)
         }
        
 
@@ -70,32 +71,73 @@ class Board{
       }
 
 
-  highlightValidMoves(validMoves){
+  highlightValidMoves(validMoves, adjacentSquares){
     console.log(this.validSquares)
-
     console.log(validMoves);
     validMoves.forEach(square => {
        $(`#${square.id}`).addClass("valid");
 
       }
       )
-      // adjacentSquares.forEach(square => {
-      //   $(`#${square.id}`).addClass("adjacent");
- 
-      //  }
-      //  )
   }
 
   removeHighlight(validMoves){
     console.log(validMoves)
-
     console.log(validMoves);
     validMoves.forEach(square => {
-console.log(square)
+    console.log(square)
        $(`#${square.id}`).removeClass("valid");
 
       }
       )
+  }
+
+  adjacentMoves(pos){
+    console.log(pos)
+    let adjUp = pos.row-1
+    if(adjUp < 0 ){
+      let sq = this.model[adjUp][pos.col]
+      if(sq.player){
+        console.log(sq)
+        return true
+      }
+    }
+
+    let adjDown = pos.row+1
+    if(adjDown >= this.model.length ){
+      let sq = this.model[adjDown][pos.col]
+      console.log(sq)
+      console.log(adjDown)
+      if(sq.player){
+        console.log(player)
+        return true
+      }
+    }
+
+    let adjLeft = pos.col-1
+    console.log(adjLeft)
+    // console.log(sq)
+    if(adjLeft < 0){
+      let sq = this.model[pos.row][adjLeft]
+      console.log(sq)
+      if(sq.player){
+      console.log(player)
+        return true
+      }
+    }
+
+    let adjRight = pos.col+1
+    if(adjRight >= this.model.length){
+      let sq = this.model[pos.row][adjRight]
+      console.log(sq)
+      console.log(adjRight)
+      if(sq.player){
+        console.log(player)
+        return true
+      }
+    }
+      return false
+
   }
   validMoves(pos){
     let validSquares = [];
@@ -104,12 +146,6 @@ console.log(square)
 
       let newRow = pos.row-i
       if(newRow < 0 ){
-        console.log(newRow)
-        console.log(pos)
-        console.log(this.model)
-        console.log(this.model[pos.row])
-        console.log(this.model[pos.row][pos.col])
-        console.log(this.activePlayer)
         break;
 
       }
@@ -127,24 +163,16 @@ console.log(square)
 
       let newRow = pos.row+i
       if(newRow >= this.model.length ){
-        console.log(newRow)
-        console.log(pos)
-        console.log(this.model)
-        console.log(this.model[pos.row])
-        console.log(this.model[pos.row][pos.col])
-        console.log(this.activePlayer)
         break;
 
       }
       let sq = this.model[newRow][pos.col]
-
       if (sq.blocked || sq.player) {
         break;
       }
       validSquares.push(sq);
   
     }
-   //squares left of the current position
    for(let i = 1; i < 4; i++){
     let newCol = pos.col-i
     if(newCol < 0){
@@ -163,31 +191,23 @@ console.log(square)
        if(newCol >= this.model.length){
         break;
       }
-      let sq = this.model[pos.row][newCol]
-  
+      let sq = this.model[pos.row][newCol] 
       if (sq.blocked || sq.player) {
         break;
       }
-       validSquares.push(sq);
-    
-    
-    
+       validSquares.push(sq);    
      }
      this.validSquares = validSquares;
-
     return validSquares
-
    }
   
-
-
   switchTurn() {
     console.log(this.activePlayer)
     if(this.activePlayer._name === "redMan"){
       console.log("redMan")
       this.activePlayer = this.players[1]
       console.log(this.players[1]);
-console.log(this.validSquares)
+      console.log(this.validSquares)
     }
 
     else {
@@ -209,16 +229,15 @@ console.log(this.validSquares)
     let weapons = sq.weapon
     $(weapon).empty();
     tmpvar = sq.weapon 
-sq.weapon = this.activePlayer.weapon
-console.log(this.activePlayer)
-this.activePlayer.weapon = tmpvar
-this.movePlayer({ row: parsedRow, col: parsedCol }
-  )
-  this.removeHighlight(this.validSquares) 
-         this.movePlayer({ row:parsedRow, col:parsedCol});
-     this.switchTurn()
-   this.validSquares = this.validMoves(this.playerPositions[this.activePlayer._name]) //re compute new valid sqs for the new active player
-     this.highlightValidMoves(this.validSquares)
+    sq.weapon = this.activePlayer.weapon
+    console.log(this.activePlayer)
+    this.activePlayer.weapon = tmpvar
+    this.movePlayer({ row: parsedRow, col: parsedCol })
+    this.removeHighlight(this.validSquares) 
+    this.movePlayer({ row:parsedRow, col:parsedCol});
+    this.switchTurn()
+    this.validSquares = this.validMoves(this.playerPositions[this.activePlayer._name]) //re compute new valid sqs for the new active player
+    this.highlightValidMoves(this.validSquares)
     console.log(weapons)
 
   }
@@ -324,29 +343,5 @@ this.movePlayer({ row: parsedRow, col: parsedCol }
       
 }
 
-// step 1
-/*
-declare a clickhandler
-add an eventlistenre to the entire board
-when an event happens, print to the console the id of the square
-*/ 
-
-// step 2
-/*
-clickHandler(e){
- 1. determine the row and col where the click occured
- if (sq.blocked || sq.player) {
-        return
-      }
- 
- 2. turn off the hightlight to reset the valid squares
- 3. move the player
- 4.this.switchPlayer();
-
-*** check if opponent is in a adjacent square, activate fight mode(comes before step 5)
- 5. highlight valid squares for new active player
-}
-
-*/ 
 
 
