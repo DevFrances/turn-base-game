@@ -51,40 +51,36 @@ class Board{
          this.validSquares = this.validMoves(this.playerPositions[this.activePlayer._name]) //re compute new valid sqs for the new active player
          this.adjacentSquares = this.adjacentMoves(this.playerPositions[this.activePlayer._name]) //re compute new valid sqs for the new active player
          console.log(this.adjacentSquares)
+         
          if(this.adjacentSquares) {
             alert("fight")
            $("#boxParent").off('click')
         
-            this.removeHighlight(this.adjacentSquares)
-           
+            this.removeHighlight(this.validSquares)
+            return
            }
 
          console.log(this.adjacentSquares)
-         this.highlightValidMoves(this.validSquares)
+          this.highlightValidMoves(this.validSquares)
      
         })
         $("button").on("click",  (e)=> {
           if (this.activePlayer._name === "redMan") {
             if($(event.target).attr('id') === "attack1" ) {
+              this.activePlayer.actions = "attack"
               const [blackMan] = this.players.filter(player => player._name == "blackMan");
 
               console.log(( parseInt($("#health-score-2").text()) - (this.activePlayer.weapon._damage / 2)))
 
-              if(blackMan.actions[blackMan.actions.length -1 ].action === "defense") {
-                $("#health-score-2").text( parseInt($("#health-score-2").text()) - (this.activePlayer.weapon._damage / 2))
-                this.activePlayer.actions.push({ action: "attack" });             
-                this.switchTurn()                          
+              if(blackMan.actions === "defense") {
+                $("#health-score-2").text( parseInt($("#health-score-2").text()) - (this.activePlayer.weapon._damage / 2))                         
              } else { 
-               $("#health-score-2").text( parseInt($("#health-score-2").text()) - this.activePlayer.weapon._damage)                       
-               this.activePlayer.actions.push({ action: "attack" });
-               this.switchTurn()                     
-             }           
+               $("#health-score-2").text( parseInt($("#health-score-2").text()) - this.activePlayer.weapon._damage)                                          
+             } 
+             this.switchTurn()                     
+
           }
           else if($(event.target).attr('id') === "defend1" ) {
-           
-            
-           
-          this.activePlayer.actions.push({ action: "defense" });
             this.switchTurn()           
                       
         }  
@@ -93,13 +89,13 @@ class Board{
         
         if($(event.target).attr('id') === "attack2" ) {
           const [redMan] = this.players.filter(player => player._name == "redMan");
-          if(redMan.actions[redMan.actions.length -1 ].action === "defense"){
+          if(redMan.actions=== "defense"){
             $("#health-score-1").text( parseInt($("#health-score-1").text()) - (this.activePlayer.weapon._damage / 2))
-            this.activePlayer.actions.push({ action: "attack" });
+            // this.activePlayer.actions.push({ action: "attack" });
             this.switchTurn()
           }else{
             $("#health-score-1").text( parseInt($("#health-score-1").text()) - this.activePlayer.weapon._damage) 
-            this.activePlayer.actions.push({ action: "attack" });
+            // this.activePlayer.actions.push({ action: "attack" });
             this.switchTurn()
           }
          
@@ -162,7 +158,7 @@ class Board{
     }
 
     let adjDown = pos.row+1
-    if(adjDown <= this.model.length ){
+    if(adjDown < this.model.length ){
       let sq = this.model[adjDown][pos.col]
       console.log(sq)
       console.log(adjDown)
@@ -185,10 +181,9 @@ class Board{
     }
 
     let adjRight = pos.col+1
-    if(adjRight <= this.model.length){
+    if(adjRight < this.model.length){
       let sq = this.model[pos.row][adjRight]
-      // console.log(sq)
-      // console.log(adjRight)
+      
       if(sq.player){
         console.log(sq.player)
         return true

@@ -5,7 +5,7 @@ class Player{
       this._image = image
       this._health = health;
       this.weapon = weapon;
-      this.actions = []
+      this.actions = "";
 
        // View
      
