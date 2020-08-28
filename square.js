@@ -33,11 +33,7 @@ get weapon(){
 set weapon(w) {
   if(w === null){
     $('#'+this.weapon._name).remove()
-   }//else if(this._weapon && this._player){
-  // let box = $(`#${this.id}`); //finds the div with the id for that sq
-  //  $(box).addClass('hidden')
-
-   //}
+   }
    else{
    let box = $(`#${this.id}`); //finds the div with the id for that sq
      $(box).append(w.elem)

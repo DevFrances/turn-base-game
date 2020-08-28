@@ -1,4 +1,3 @@
-
 class Board{
   constructor(players, weapons){
    this.model = this._createModel();
@@ -54,6 +53,11 @@ class Board{
          
          if(this.adjacentSquares) {
             alert("fight")
+             document.getElementById('attack1').style.display = 'inline'
+              document.getElementById('defend1').style.display = 'inline'
+              document.getElementById('attack2').style.display = 'inline'
+              document.getElementById('defend2').style.display = 'inline'  
+            
            $("#boxParent").off('click')
         
             this.removeHighlight(this.validSquares)
@@ -81,6 +85,8 @@ class Board{
 
           }
           else if($(event.target).attr('id') === "defend1" ) {
+            this.activePlayer.actions = "defense"
+           
             this.switchTurn()           
                       
         }  
@@ -88,21 +94,28 @@ class Board{
       else if (this.activePlayer._name === "blackMan") {
         
         if($(event.target).attr('id') === "attack2" ) {
+          this.activePlayer.actions = "attack"
+
           const [redMan] = this.players.filter(player => player._name == "redMan");
           if(redMan.actions=== "defense"){
             $("#health-score-1").text( parseInt($("#health-score-1").text()) - (this.activePlayer.weapon._damage / 2))
+           
             // this.activePlayer.actions.push({ action: "attack" });
-            this.switchTurn()
+            // this.switchTurn()
           }else{
             $("#health-score-1").text( parseInt($("#health-score-1").text()) - this.activePlayer.weapon._damage) 
+          this.activePlayer.actions = "attack"
+           
             // this.activePlayer.actions.push({ action: "attack" });
-            this.switchTurn()
           }
+          this.switchTurn()
          
         }
         else if($(event.target).attr('id') === "defend2" ) {
           $(event.target).attr('id')
-          this.activePlayer.actions.push({ action: "defense" });
+          this.activePlayer.actions = "defense"
+
+          // this.activePlayer.actions.push({ action: "defense" });
           this.switchTurn()       
         }
         }
@@ -391,21 +404,12 @@ class Board{
       
 }
 
-/*
-1. transition from navigate mode to fight mode
-    remove the board event handler
-    $(#boxParent).off('click')
-    remove highlighted squares
 
-    2. new button event handler that will listen for clicks on the four buttons
-      highlight player panel for active fighter
-      this will also call switch player
-
-      3. update panel
-
-
-
-*/
-
-
-
+// 1. transition from navigate mode to fight mode
+//     remove the board event handler
+//     $(#boxParent).off('click')
+//     remove highlighted squares
+//     2. new button event handler that will listen for clicks on the four buttons
+//       highlight player panel for active fighter
+//       this will also call switch player
+//       3. update panel
