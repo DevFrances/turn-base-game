@@ -5,6 +5,8 @@ class Player{
       this._image = image
       this._health = health;
       this.weapon = weapon;
+      this.actions = []
+
        // View
      
        this.elem = `<img src='${image}' class= "player" id="${name}" />`

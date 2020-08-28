@@ -9,7 +9,6 @@ class Board{
     this.renderPlayers(players);
     this.renderWeapons(weapons);
     this.renderObstacles();
-   // this.getAdjacentCells();
     const [redMan] = players;
     this.activePlayer = redMan
     this.players = players;
@@ -17,11 +16,8 @@ class Board{
     this.validSquares = this.validMoves(this.playerPositions[this.activePlayer._name]) 
     console.log(this.validSquares)
   
-    this.highlightValidMoves(this.validSquares)
-
-        $('.button').on('click',(e)=>{
-          console.log(e.target)
-        })
+        this.highlightValidMoves(this.validSquares)
+        this.renderPlayerPanel()
     
         $("#boxParent").on("click",  (e)=>{
           console.log(event)
@@ -46,32 +42,89 @@ class Board{
           }
           if(sq.weapon){
             this.pickWeapon(event.target.parentElement)
-          }
-          else{          
-           const [row, col] = event.target.id.split("-");
-           const parsedRow = parseInt(row)
-           const parsedCol = parseInt(col)
-
-       
-         this.removeHighlight(this.validSquares) 
-         this.movePlayer({ row:parsedRow, col:parsedCol});
-         this.switchTurn()
+          }       
+            [row, col] = event.target.id.split("-");
+            this.removeHighlight(this.validSquares) 
+            this.movePlayer({ row:parsedRow, col:parsedCol});
+            this.switchTurn()
   
          this.validSquares = this.validMoves(this.playerPositions[this.activePlayer._name]) //re compute new valid sqs for the new active player
          this.adjacentSquares = this.adjacentMoves(this.playerPositions[this.activePlayer._name]) //re compute new valid sqs for the new active player
-         if(this.adjacentSquares) { alert("fight") }
+         console.log(this.adjacentSquares)
+         if(this.adjacentSquares) {
+            alert("fight")
+           $("#boxParent").off('click')
+        
+            this.removeHighlight(this.adjacentSquares)
+           
+           }
 
          console.log(this.adjacentSquares)
          this.highlightValidMoves(this.validSquares)
-        }
-       
-
+     
         })
+        $("button").on("click",  (e)=> {
+          if (this.activePlayer._name === "redMan") {
+            if($(event.target).attr('id') === "attack1" ) {
+              const [blackMan] = this.players.filter(player => player._name == "blackMan");
+
+              console.log(( parseInt($("#health-score-2").text()) - (this.activePlayer.weapon._damage / 2)))
+
+              if(blackMan.actions[blackMan.actions.length -1 ].action === "defense") {
+                $("#health-score-2").text( parseInt($("#health-score-2").text()) - (this.activePlayer.weapon._damage / 2))
+                this.activePlayer.actions.push({ action: "attack" });             
+                this.switchTurn()                          
+             } else { 
+               $("#health-score-2").text( parseInt($("#health-score-2").text()) - this.activePlayer.weapon._damage)                       
+               this.activePlayer.actions.push({ action: "attack" });
+               this.switchTurn()                     
+             }           
+          }
+          else if($(event.target).attr('id') === "defend1" ) {
+           
+            
+           
+          this.activePlayer.actions.push({ action: "defense" });
+            this.switchTurn()           
+                      
+        }  
+      }
+      else if (this.activePlayer._name === "blackMan") {
+        
+        if($(event.target).attr('id') === "attack2" ) {
+          const [redMan] = this.players.filter(player => player._name == "redMan");
+          if(redMan.actions[redMan.actions.length -1 ].action === "defense"){
+            $("#health-score-1").text( parseInt($("#health-score-1").text()) - (this.activePlayer.weapon._damage / 2))
+            this.activePlayer.actions.push({ action: "attack" });
+            this.switchTurn()
+          }else{
+            $("#health-score-1").text( parseInt($("#health-score-1").text()) - this.activePlayer.weapon._damage) 
+            this.activePlayer.actions.push({ action: "attack" });
+            this.switchTurn()
+          }
+         
+        }
+        else if($(event.target).attr('id') === "defend2" ) {
+          $(event.target).attr('id')
+          this.activePlayer.actions.push({ action: "defense" });
+          this.switchTurn()       
+        }
+        }
+      })
+        } 
+         
+      
+      renderPlayerPanel(){
+        const [player1, player2] = this.players;
+        $("#health-score-2").text(player2._health)
+        $("#health-score-1").text(player1._health)
         
       }
 
-
-  highlightValidMoves(validMoves, adjacentSquares){
+  highlightValidMoves(validMoves){
+    if(validMoves.length < 0 || validMoves === undefined) {
+      return
+      }
     console.log(this.validSquares)
     console.log(validMoves);
     validMoves.forEach(square => {
@@ -82,8 +135,13 @@ class Board{
   }
 
   removeHighlight(validMoves){
+    if(validMoves.length < 0 || validMoves === undefined) {
+       return
+       }
+
     console.log(validMoves)
     console.log(validMoves);
+
     validMoves.forEach(square => {
     console.log(square)
        $(`#${square.id}`).removeClass("valid");
@@ -95,21 +153,21 @@ class Board{
   adjacentMoves(pos){
     console.log(pos)
     let adjUp = pos.row-1
-    if(adjUp < 0 ){
+    if(adjUp >= 0 ){
       let sq = this.model[adjUp][pos.col]
       if(sq.player){
-        console.log(sq)
+        console.log(sq.player)
         return true
       }
     }
 
     let adjDown = pos.row+1
-    if(adjDown >= this.model.length ){
+    if(adjDown <= this.model.length ){
       let sq = this.model[adjDown][pos.col]
       console.log(sq)
       console.log(adjDown)
       if(sq.player){
-        console.log(player)
+        console.log(sq.player)
         return true
       }
     }
@@ -117,22 +175,22 @@ class Board{
     let adjLeft = pos.col-1
     console.log(adjLeft)
     // console.log(sq)
-    if(adjLeft < 0){
+    if(adjLeft >= 0){
       let sq = this.model[pos.row][adjLeft]
       console.log(sq)
       if(sq.player){
-      console.log(player)
+      console.log(sq.player)
         return true
       }
     }
 
     let adjRight = pos.col+1
-    if(adjRight >= this.model.length){
+    if(adjRight <= this.model.length){
       let sq = this.model[pos.row][adjRight]
-      console.log(sq)
-      console.log(adjRight)
+      // console.log(sq)
+      // console.log(adjRight)
       if(sq.player){
-        console.log(player)
+        console.log(sq.player)
         return true
       }
     }
@@ -232,12 +290,7 @@ class Board{
     sq.weapon = this.activePlayer.weapon
     console.log(this.activePlayer)
     this.activePlayer.weapon = tmpvar
-    this.movePlayer({ row: parsedRow, col: parsedCol })
-    this.removeHighlight(this.validSquares) 
-    this.movePlayer({ row:parsedRow, col:parsedCol});
-    this.switchTurn()
-    this.validSquares = this.validMoves(this.playerPositions[this.activePlayer._name]) //re compute new valid sqs for the new active player
-    this.highlightValidMoves(this.validSquares)
+    
     console.log(weapons)
 
   }
@@ -342,6 +395,22 @@ class Board{
          }
       
 }
+
+/*
+1. transition from navigate mode to fight mode
+    remove the board event handler
+    $(#boxParent).off('click')
+    remove highlighted squares
+
+    2. new button event handler that will listen for clicks on the four buttons
+      highlight player panel for active fighter
+      this will also call switch player
+
+      3. update panel
+
+
+
+*/
 
 
 
