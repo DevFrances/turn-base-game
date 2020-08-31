@@ -53,12 +53,41 @@ class Board{
          
          if(this.adjacentSquares) {
             alert("fight")
+            // display buttons
              document.getElementById('attack1').style.display = 'inline'
               document.getElementById('defend1').style.display = 'inline'
               document.getElementById('attack2').style.display = 'inline'
-              document.getElementById('defend2').style.display = 'inline'  
-            
+              document.getElementById('defend2').style.display = 'inline'
+              // end of display buttons  
+
+              // if(this.activePlayer._name === "redMan"){
+              //   $('#redPanel').addClass('redPanel')
+              //   $('#blackPanel').removeClass('blackPanel')
+
+              //   return
+
+              // }else if (this.activePlayer === "blackMan"){
+              //   $('#redPanel').removeClass('redPanel')
+
+              //   $('#blackPanel').addClass('blackPanel')
+              //  return
+              // }
+
+           
            $("#boxParent").off('click')
+             $('#redPanel').removeClass('redPanel')
+            $('#blackPanel').removeClass('blackPanel')
+
+           if (this.activePlayer._name === "redMan") {
+            $('#redPanel').addClass('redPanel')
+            $('#blackPanel').removeClass('blackPanel')
+           }else{
+            $('#blackPanel').addClass('blackPanel')
+            $('#redPanel').removeClass('redPanel')
+
+
+           }
+           
         
             this.removeHighlight(this.validSquares)
             return
@@ -69,55 +98,88 @@ class Board{
      
         })
         $("button").on("click",  (e)=> {
+      //  let life2 = $("#health-score-2").text( parseInt($("#health-score-2").text()))
+
           if (this.activePlayer._name === "redMan") {
+           
+
+
             if($(event.target).attr('id') === "attack1" ) {
               this.activePlayer.actions = "attack"
+              $('#redPanel').removeClass('redPanel')
+              $('#blackPanel').addClass('blackPanel')
               const [blackMan] = this.players.filter(player => player._name == "blackMan");
 
               console.log(( parseInt($("#health-score-2").text()) - (this.activePlayer.weapon._damage / 2)))
 
               if(blackMan.actions === "defense") {
                 $("#health-score-2").text( parseInt($("#health-score-2").text()) - (this.activePlayer.weapon._damage / 2))                         
-             } else { 
+             }
+            
+              else { 
                $("#health-score-2").text( parseInt($("#health-score-2").text()) - this.activePlayer.weapon._damage)                                          
              } 
+        
+
              this.switchTurn()                     
 
           }
           else if($(event.target).attr('id') === "defend1" ) {
             this.activePlayer.actions = "defense"
-           
+            $('#redPanel').removeClass('redPanel')
+            $('#blackPanel').addClass('blackPanel')
             this.switchTurn()           
                       
         }  
-      }
+          // if( $("#health-score-2").text(player2._health) < 1){
+          //      alert("redMan Wins")
+          //    }
+        }
+
+
       else if (this.activePlayer._name === "blackMan") {
-        
+     
+         
         if($(event.target).attr('id') === "attack2" ) {
           this.activePlayer.actions = "attack"
-
+          $('#redPanel').addClass('redPanel')
+          $('#blackPanel').removeClass('blackPanel')
           const [redMan] = this.players.filter(player => player._name == "redMan");
           if(redMan.actions=== "defense"){
             $("#health-score-1").text( parseInt($("#health-score-1").text()) - (this.activePlayer.weapon._damage / 2))
            
-            // this.activePlayer.actions.push({ action: "attack" });
-            // this.switchTurn()
-          }else{
+          }   
+       
+      // if( $("#health-score-1").text(player1._health) === 0){
+      //   alert("blackMan Wins")
+      // }
+          else{
             $("#health-score-1").text( parseInt($("#health-score-1").text()) - this.activePlayer.weapon._damage) 
           this.activePlayer.actions = "attack"
-           
+         
             // this.activePlayer.actions.push({ action: "attack" });
           }
+
           this.switchTurn()
          
+        // let life1 = $("#health-score-2").text( parseInt($("#health-score-2").text()))
+       
+        //  if(life1 === 0){
+        //   alert ("Black Ninja wins")
+        // }
         }
         else if($(event.target).attr('id') === "defend2" ) {
           $(event.target).attr('id')
           this.activePlayer.actions = "defense"
-
+          $('#redPanel').addClass('redPanel')
+          $('#blackPanel').removeClass('blackPanel')
           // this.activePlayer.actions.push({ action: "defense" });
           this.switchTurn()       
         }
+        //  if( $("#health-score-1").text(player2._health) < 1){
+        //        alert("BlackMan Wins")
+        //      }
+
         }
       })
         } 

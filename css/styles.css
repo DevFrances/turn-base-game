@@ -106,7 +106,11 @@ img{
  #attack1, #defend1, #attack2, #defend2{
 	display: none;
 }
-/* document.getElementById('attack1').style.display = 'inline'
-document.getElementById('defend1').style.display = 'inline'
-document.getElementById('attack2').style.display = 'inline'
-document.getElementById('defend2').style.display = 'inline'  */
+.redPanel{
+	
+	border: 5px solid green;
+}
+.blackPanel{
+	
+	border: 5px solid green;
+}
