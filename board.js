@@ -62,8 +62,8 @@ class Board{
 
            
            $("#boxParent").off('click')
-             $('#redPanel').removeClass('redPanel')
-            $('#blackPanel').removeClass('blackPanel')
+            //  $('#redPanel').removeClass('redPanel')
+            // $('#blackPanel').removeClass('blackPanel')
 
            if (this.activePlayer._name === "redMan") {
             $('#redPanel').addClass('redPanel')
@@ -96,7 +96,10 @@ class Board{
               $('#blackPanel').addClass('blackPanel')
               let gameOver = 0
            if(parseInt($("#health-score-1").text()) <=  gameOver){
-            alert("GAME OVER: BLACK NINJA WINS. REFRESH GAME TO START AGAIN")
+            // alert("GAME OVER: BLACK NINJA WINS. CLICK ON RESTART TO START AGAIN")
+          document.getElementById('myModal').style.display ="inline"
+          document.getElementById('text').textContent = "GAME OVER: BLACK NINJA WINS. CLICK ON RESTART TO START AGAIN"
+
             return
           }
               const [blackMan] = this.players.filter(player => player._name == "blackMan");
@@ -106,7 +109,10 @@ class Board{
               if(blackMan.actions === "defense") {
                 $("#health-score-2").text( parseInt($("#health-score-2").text()) - (this.activePlayer.weapon._damage / 2)) 
                 if(parseInt($("#health-score-1").text()) <=  gameOver){
-                  alert("GAME OVER: BLACK NINJA WINS. REFRESH GAME TO START AGAIN")
+                  // alert("GAME OVER: BLACK NINJA WINS. CLICK ON RESTART TO START AGAIN")
+          document.getElementById('myModal').style.display ="inline"
+          document.getElementById('text').textContent = "GAME OVER: BLACK NINJA WINS. CLICK ON RESTART TO START AGAIN"
+
                   return
                 }                        
              }
@@ -114,7 +120,10 @@ class Board{
               else { 
                $("#health-score-2").text( parseInt($("#health-score-2").text()) - this.activePlayer.weapon._damage)    
                if(parseInt($("#health-score-1").text()) <=  gameOver){
-                alert("GAME OVER: BLACK NINJA WINS. REFRESH GAME TO START AGAIN")
+                // alert("GAME OVER: BLACK NINJA WINS. CLICK ON RESTART TO START AGAIN")
+          document.getElementById('myModal').style.display ="inline"
+          document.getElementById('text').textContent = "GAME OVER: BLACK NINJA WINS. CLICK ON RESTART TO START AGAIN"
+
                 return
               }                                      
              } 
@@ -129,7 +138,10 @@ class Board{
             $('#blackPanel').addClass('blackPanel')
             let gameOver =0
             if(parseInt($("#health-score-2").text()) <=  gameOver){
-              alert("GAME OVER: BLACK NINJA WINS. REFRESH GAME TO START AGAIN")
+              // alert("GAME OVER: BLACK NINJA WINS. CLICK ON RESTART TO START AGAIN")
+          document.getElementById('myModal').style.display ="inline"
+          document.getElementById('text').textContent = "GAME OVER: BLACK NINJA WINS. CLICK ON RESTART TO START AGAIN"
+
               return
             }
             this.switchTurn()           
@@ -147,14 +159,20 @@ class Board{
           $('#blackPanel').removeClass('blackPanel')
           let gameOver = 0
                  if(parseInt($("#health-score-2").text()) <=  gameOver){
-                  alert("GAME OVER: RED NINJA WINS. REFRESH GAME TO START AGAIN")
+                  // alert("GAME OVER: RED NINJA WINS. CLICK ON RESTART TO START AGAIN")
+          document.getElementById('myModal').style.display ="inline"
+          document.getElementById('text').textContent = "GAME OVER: RED NINJA WINS. CLICK ON RESTART TO START AGAIN"
+
                   return
                 }
           const [redMan] = this.players.filter(player => player._name == "redMan");
-          if(redMan.actions=== "defense"){
+          if(redMan.actions === "defense"){
             $("#health-score-1").text( parseInt($("#health-score-1").text()) - (this.activePlayer.weapon._damage / 2)) 
             if(parseInt($("#health-score-2").text()) <=  gameOver){
-              alert("GAME OVER: RED NINJA WINS. REFRESH GAME TO START AGAIN")
+              // alert("GAME OVER: RED NINJA WINS. CLICK ON RESTART TO START AGAIN")
+          document.getElementById('myModal').style.display ="inline"
+          document.getElementById('text').textContent = "GAME OVER: RED NINJA WINS. CLICK ON RESTART TO START AGAIN"
+
               return
             }          
           }   
@@ -163,7 +181,10 @@ class Board{
             $("#health-score-1").text( parseInt($("#health-score-1").text()) - this.activePlayer.weapon._damage) 
           this.activePlayer.actions = "attack"
           if(parseInt($("#health-score-2").text()) <=  gameOver){
-            alert("GAME OVER: RED NINJA WINS. REFRESH GAME TO START AGAIN")
+            // alert("GAME OVER: RED NINJA WINS. CLICK ON RESTART TO START AGAIN")
+          document.getElementById('myModal').style.display ="inline"
+          document.getElementById('text').textContent = "GAME OVER: RED NINJA WINS. CLICK ON RESTART TO START AGAIN"
+
             return
           }
           }
@@ -178,7 +199,10 @@ class Board{
           $('#blackPanel').removeClass('blackPanel')
           let gameOver = 0
           if(parseInt($("#health-score-2").text()) <=  gameOver){
-           alert("GAME OVER: RED NINJA WINS. REFRESH GAME TO START AGAIN")
+          //  alert("GAME OVER: RED NINJA WINS. CLICK ON RESTART TO START AGAIN")
+          document.getElementById('myModal').style.display ="inline"
+          document.getElementById('text').textContent = "GAME OVER: RED NINJA WINS. CLICK ON RESTART TO START AGAIN"
+
            return
          }
           this.switchTurn()       
