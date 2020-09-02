@@ -114,6 +114,19 @@ img{
 	
 	border: 5px solid green;
 }
+.attack{
+	background-color:green;
+	color: white;
+	padding: 0.5em;
+	font-weight:bold;
+}
+.defend{
+	background-color: red;
+	color: white;
+	padding: 0.5em;
+	font-weight:bold;
+
+}
 /* #modal{
 	display: none;
 } */
