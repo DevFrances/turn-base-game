@@ -15,7 +15,6 @@ class Board{
   
         this.highlightValidMoves(this.validSquares)
         this.renderPlayerPanel()
-    
         $("#boxParent").on("click",  (e)=>{
           console.log(event)
           let row, col
@@ -39,16 +38,22 @@ class Board{
           }
           if(sq.weapon){
             this.pickWeapon(event.target.parentElement)
-          }       
+            if( this.pickWeapon()){
+              this.currentWeapon()
+            }
+          }   
+
             [row, col] = event.target.id.split("-");
             this.removeHighlight(this.validSquares) 
             this.movePlayer({ row:parsedRow, col:parsedCol});
+
             this.switchTurn()
+// this.currentWeapon()
   
          this.validSquares = this.validMoves(this.playerPositions[this.activePlayer._name]) //re compute new valid sqs for the new active player
          this.adjacentSquares = this.adjacentMoves(this.playerPositions[this.activePlayer._name]) //re compute new valid sqs for the new active player
          console.log(this.adjacentSquares)
-         
+        
          if(this.adjacentSquares) {
             alert("fight")
             // display buttons
@@ -116,6 +121,8 @@ class Board{
             this.switchTurn()           
                       
         }  
+   // this.currentWeapon()
+
         }
 
 
@@ -336,11 +343,16 @@ class Board{
     sq.weapon = this.activePlayer.weapon
     console.log(this.activePlayer)
     this.activePlayer.weapon = tmpvar
-    
     console.log(weapons)
-
+//  this.currentWeapon()
   }
- 
+  currentWeapon(){
+    let holder = document.createElement('div')
+       let currentWeapon =   this.elem = `<img src='${image}' class= "weapon" id="${name}" />`
+       
+     holder.appendChild("currentWeapon")
+     document.getElementById('weaponHold').appendChild(holder);  
+   }
   _createModel(){
    let model = [] // model[2][3] is row 3, column 4 (since first row is 0)
     for (let r=0; r < 9; r++) {
