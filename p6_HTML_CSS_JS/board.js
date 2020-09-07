@@ -60,7 +60,7 @@ class Board{
             this.adjacentSquares = this.adjacentMoves(this.playerPositions[this.activePlayer._name]) //re compute new valid sqs for the new active player
             console.log(this.adjacentSquares)
         
-         if(this.adjacentSquares) {
+          if(this.adjacentSquares) {
             alert("fight")
             // display buttons
              document.getElementById('attack1').style.display = 'inline'
@@ -161,6 +161,8 @@ class Board{
             }                
             document.getElementById('boxParent').appendChild(row);
          }
+         $('#redPanel').removeClass('redPanel')
+         $('#blackPanel').removeClass('blackPanel')
     
          } 
          
