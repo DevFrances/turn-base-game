@@ -37,18 +37,24 @@ class Board{
             return
           }
           if(sq.weapon){
-            this.pickWeapon(event.target.parentElement)
-            if( this.pickWeapon()){
-              this.currentWeapon()
-            }
-          }   
+            this.pickWeapon(event.target.parentElement)           
+          } 
 
+          if(sq.weapon && this.activePlayer._name === "redMan"){
+            console.log("found weapon") 
+            document.getElementById('player-one-attack-power').textContent = this.activePlayer.weapon._damage
+            document.getElementById('player-one-weapon').textContent = this.activePlayer.weapon._name
+
+          }  else if(sq.weapon && this.activePlayer._name === "blackMan"){
+            document.getElementById('player-two-attack-power').textContent =this.activePlayer.weapon._damage
+            document.getElementById('player-two-weapon').textContent = this.activePlayer.weapon._name
+
+          } 
             [row, col] = event.target.id.split("-");
             this.removeHighlight(this.validSquares) 
             this.movePlayer({ row:parsedRow, col:parsedCol});
 
             this.switchTurn()
-// this.currentWeapon()
   
          this.validSquares = this.validMoves(this.playerPositions[this.activePlayer._name]) //re compute new valid sqs for the new active player
          this.adjacentSquares = this.adjacentMoves(this.playerPositions[this.activePlayer._name]) //re compute new valid sqs for the new active player
@@ -343,16 +349,13 @@ class Board{
     sq.weapon = this.activePlayer.weapon
     console.log(this.activePlayer)
     this.activePlayer.weapon = tmpvar
+    
     console.log(weapons)
 //  this.currentWeapon()
   }
-  currentWeapon(){
-    let holder = document.createElement('div')
-       let currentWeapon =   this.elem = `<img src='${image}' class= "weapon" id="${name}" />`
-       
-     holder.appendChild("currentWeapon")
-     document.getElementById('weaponHold').appendChild(holder);  
-   }
+  updatePlayerPanel(player){
+    $('#player-one-weapon').text(player[0]['weapon']['name']);
+     }
   _createModel(){
    let model = [] // model[2][3] is row 3, column 4 (since first row is 0)
     for (let r=0; r < 9; r++) {
